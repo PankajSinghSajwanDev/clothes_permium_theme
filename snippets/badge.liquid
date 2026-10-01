@@ -1,0 +1,28 @@
+{% doc %}
+  Renders a luxury status badge (NEW, SALE, SOLD OUT, PREORDER, LOW STOCK).
+
+  @param {string} type - The badge variant (new, sale, sold_out, preorder, low_stock)
+  @param {string} [class] - Optional additional CSS class
+{% enddoc %}
+
+{%- liquid
+  assign badge_label = ''
+  case type
+    when 'new'
+      assign badge_label = 'badges.new' | t
+    when 'sale'
+      assign badge_label = 'badges.sale' | t
+    when 'sold_out'
+      assign badge_label = 'badges.sold_out' | t
+    when 'preorder'
+      assign badge_label = 'badges.preorder' | t
+    when 'low_stock'
+      assign badge_label = 'badges.low_stock' | t
+  endcase
+-%}
+
+{%- if badge_label != blank -%}
+  <span class="badge badge--{{ type }} {{ class }}">
+    {{ badge_label }}
+  </span>
+{%- endif -%}

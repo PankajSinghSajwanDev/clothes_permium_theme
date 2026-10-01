@@ -1,0 +1,91 @@
+{% doc %}
+  Renders a luxury product card with secondary hover image, status badges, title, and price.
+
+  @param {product} product - The product object to render
+  @param {string} [class] - Optional extra CSS class
+  @param {boolean} [show_secondary_image] - Whether to show the second image on hover
+  @param {string} [sizes] - Responsive sizes attribute for image_tag
+  @param {boolean} [lazy_load] - Whether to lazy load the images
+{% enddoc %}
+
+{%- liquid
+  assign show_secondary_image = show_secondary_image | default: true
+  assign featured_media = product.featured_media
+  assign secondary_media = product.media[1]
+  assign image_loading = 'lazy'
+  if lazy_load == false
+    assign image_loading = 'eager'
+  endif
+
+  assign is_new = false
+  if product.tags contains 'new' or product.tags contains 'New' or product.tags contains 'NEW'
+    assign is_new = true
+  elsif product.metafields.custom.is_new == true
+    assign is_new = true
+  endif
+
+  assign is_sold_out = false
+  unless product.available
+    assign is_sold_out = true
+  endunless
+
+  assign is_on_sale = false
+  if product.compare_at_price > product.price
+    assign is_on_sale = true
+  endif
+-%}
+
+<div class="product-card {{ class }}" data-product-id="{{ product.id }}">
+  <div class="product-card__media-wrapper">
+    <a href="{{ product.url }}" class="product-card__media-link" aria-label="{{ product.title | escape }}">
+      {%- if featured_media != blank -%}
+        <div class="product-card__image-container{% if secondary_media != blank and show_secondary_image %} has-secondary-image{% endif %}">
+          {{ featured_media | image_url: width: 800 | image_tag:
+            class: 'product-card__image product-card__image--primary',
+            loading: image_loading,
+            widths: '300, 450, 600, 800',
+            sizes: sizes | default: '(min-width: 1200px) 25vw, (min-width: 768px) 33vw, 50vw',
+            alt: featured_media.alt | default: product.title | escape
+          }}
+
+          {%- if secondary_media != blank and show_secondary_image -%}
+            {{ secondary_media | image_url: width: 800 | image_tag:
+              class: 'product-card__image product-card__image--secondary',
+              loading: image_loading,
+              widths: '300, 450, 600, 800',
+              sizes: sizes | default: '(min-width: 1200px) 25vw, (min-width: 768px) 33vw, 50vw',
+              alt: secondary_media.alt | default: product.title | escape
+            }}
+          {%- endif -%}
+        </div>
+      {%- else -%}
+        <div class="product-card__placeholder">
+          {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+        </div>
+      {%- endif -%}
+    </a>
+
+    {%- # Badges Container -%}
+    <div class="product-card__badges">
+      {%- if is_sold_out -%}
+        {% render 'badge', type: 'sold_out' %}
+      {%- elsif is_on_sale -%}
+        {% render 'badge', type: 'sale' %}
+      {%- elsif is_new -%}
+        {% render 'badge', type: 'new' %}
+      {%- endif -%}
+    </div>
+  </div>
+
+  <div class="product-card__info">
+    <h3 class="product-card__title">
+      <a href="{{ product.url }}" class="product-card__link">
+        {{ product.title }}
+      </a>
+    </h3>
+
+    <div class="product-card__price">
+      {% render 'price', product: product %}
+    </div>
+  </div>
+</div>

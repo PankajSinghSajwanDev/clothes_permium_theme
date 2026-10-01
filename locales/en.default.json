@@ -176,6 +176,8 @@
   },
   "products": {
     "add_to_cart": "Add to Bag",
+    "regular_price": "Regular price",
+    "sale_price": "Sale price",
     "sold_out": "Sold Out",
     "unavailable": "Unavailable",
     "preorder": "Pre-Order",
@@ -194,6 +196,26 @@
     "details": "Details & Fit",
     "materials": "Materials & Care",
     "shipping": "Shipping & Returns"
+  },
+  "badges": {
+    "new": "New",
+    "sale": "Sale",
+    "sold_out": "Sold Out",
+    "preorder": "Pre-Order",
+    "low_stock": "Low Stock"
+  },
+  "sections": {
+    "view_all": "View All",
+    "discover": "Discover",
+    "shop_now": "Shop the Collection",
+    "explore_capsule": "Explore Capsule",
+    "read_story": "Read Story",
+    "new_arrivals": "New Arrivals",
+    "curated_editions": "Curated Editions",
+    "newsletter_title": "Private Invitations",
+    "newsletter_subtitle": "Be first to receive access to new capsules, private salon viewings, and atelier stories.",
+    "editorial_kicker": "Atelier Lookbook",
+    "featured_collection": "Featured Collection"
   },
   "gift_card": {
     "add_to_apple_wallet": "Add to Apple Wallet",

@@ -35,7 +35,13 @@
     "announcement_bar": "Announcement bar",
     "cookie_banner": "Cookie banner",
     "social_media": "Social media links",
-    "animations": "Motion and animations"
+    "animations": "Motion and animations",
+    "hero": "Hero banner",
+    "product_carousel": "Product carousel",
+    "editorial_banner": "Editorial lookbook banner",
+    "rich_text": "Rich text",
+    "image_with_text": "Image with text",
+    "newsletter": "Newsletter"
   },
   "labels": {
     "alignment": "Alignment",
@@ -75,7 +81,21 @@
     "enable_animations": "Enable subtle animations",
     "show_newsletter": "Show newsletter in footer",
     "footer_heading": "Footer heading",
-    "footer_description": "Footer brand description"
+    "footer_description": "Footer brand description",
+    "overlay_opacity": "Overlay opacity",
+    "tile_1": "Tile 1",
+    "tile_2": "Tile 2",
+    "tile_3": "Tile 3",
+    "image": "Image",
+    "mobile_image": "Mobile image",
+    "kicker": "Kicker / Pre-heading",
+    "heading": "Heading",
+    "subheading": "Subheading / Description",
+    "button_label": "Button label",
+    "button_link": "Button link",
+    "collection": "Collection",
+    "products_to_show": "Products to show",
+    "show_view_all": "Show view all link"
   },
   "options": {
     "alignment": {
@@ -94,6 +114,14 @@
     "size": {
       "large": "Large",
       "small": "Small"
+    },
+    "hero_layout": {
+      "single": "Single tile",
+      "split": "Split 2-up tiles"
+    },
+    "image_with_text": {
+      "image_first": "Image first",
+      "text_first": "Text first"
     }
   }
 }

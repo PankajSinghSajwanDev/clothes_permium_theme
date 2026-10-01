@@ -14,6 +14,8 @@
     --font-primary--style: {{ settings.type_primary_font.style }};
     --font-primary--weight: {{ settings.type_primary_font.weight }};
     --font-ui--family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --font-heading: var(--font-primary--family);
+    --font-body: var(--font-ui--family);
 
     --font-label-size: 0.6875rem;
     --font-label-tracking: 0.14em;
@@ -24,11 +26,32 @@
     --font-h3: clamp(1.125rem, 2vw, 1.5rem);
     --font-h4: 1rem;
 
+    --text-2xs: 0.6875rem;
+    --text-xs: 0.75rem;
+    --text-sm: 0.875rem;
+    --text-base: 0.9375rem;
+    --text-lg: 1.125rem;
+    --text-xl: 1.35rem;
+    --text-2xl: clamp(1.5rem, 2.5vw, 2rem);
+    --text-3xl: clamp(1.85rem, 3.5vw, 2.75rem);
+    --text-4xl: clamp(2.25rem, 5vw, 4rem);
+
+    --tracking-wide: 0.04em;
+    --tracking-wider: 0.08em;
+    --tracking-widest: 0.14em;
+
+    --leading-tight: 1.2;
+    --leading-normal: 1.5;
+    --leading-relaxed: 1.7;
+
     /* Colors */
     --color-background: {{ settings.background_color | default: '#FFFFFF' }};
     --color-foreground: {{ settings.foreground_color | default: '#0A0A0A' }};
+    --color-foreground-muted: #666666;
     --color-accent: {{ settings.accent_color | default: '#C8A97E' }};
+    --color-sand: #C8A97E;
     --color-border: {{ settings.border_color | default: '#E8E8E8' }};
+    --color-surface: #F8F7F5;
     
     --color-grey-100: #F7F7F7;
     --color-grey-200: #EAEAEA;

@@ -1,0 +1,124 @@
+{% doc %}
+  Renders an editorial product carousel with touch swipe, arrow navigation,
+  collection source, and NEW badge logic.
+{% enddoc %}
+
+{%- liquid
+  assign target_collection = block.settings.collection
+  assign limit = block.settings.products_to_show | default: 6
+  assign heading = block.settings.title | default: target_collection.title | default: 'sections.new_arrivals' | t
+  assign kicker = block.settings.kicker
+-%}
+
+<product-carousel class="product-carousel" {{ block.shopify_attributes }}>
+  <div class="product-carousel__header">
+    <div class="product-carousel__headings">
+      {%- if kicker != blank -%}
+        <span class="product-carousel__kicker">{{ kicker }}</span>
+      {%- endif -%}
+      <h2 class="product-carousel__title">{{ heading }}</h2>
+    </div>
+
+    <div class="product-carousel__controls">
+      {%- if block.settings.show_view_all and target_collection != blank -%}
+        <a href="{{ target_collection.url }}" class="product-carousel__view-all">
+          {{ 'sections.view_all' | t }}
+        </a>
+      {%- endif -%}
+
+      <div class="product-carousel__nav-btns">
+        <button
+          type="button"
+          class="carousel-nav-btn carousel-nav-btn--prev"
+          aria-label="{{ 'accessibility.previous' | t }}"
+          data-direction="prev"
+        >
+          {% render 'icon', name: 'chevron-left' %}
+        </button>
+        <button
+          type="button"
+          class="carousel-nav-btn carousel-nav-btn--next"
+          aria-label="{{ 'accessibility.next' | t }}"
+          data-direction="next"
+        >
+          {% render 'icon', name: 'chevron-right' %}
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="product-carousel__track-container">
+    <div class="product-carousel__track" role="list" tabindex="0">
+      {%- if target_collection != blank and target_collection.products_count > 0 -%}
+        {%- for product in target_collection.products limit: limit -%}
+          <div class="product-carousel__slide" role="listitem">
+            {% render 'product-card',
+              product: product,
+              sizes: '(min-width: 1200px) 25vw, (min-width: 768px) 35vw, 70vw'
+            %}
+          </div>
+        {%- endfor -%}
+      {%- else -%}
+        {%- # Graceful placeholder preview if collection is empty -%}
+        {%- for i in (1..limit) -%}
+          <div class="product-carousel__slide" role="listitem">
+            <div class="product-card">
+              <div class="product-card__media-wrapper">
+                <div class="product-card__placeholder">
+                  {% capture current %}{% cycle 1, 2, 3, 4, 5, 6 %}{% endcapture %}
+                  {{ 'product-' | append: current | placeholder_svg_tag: 'placeholder-svg' }}
+                </div>
+              </div>
+              <div class="product-card__info">
+                <h3 class="product-card__title">Maison Garment {{ i }}</h3>
+                <div class="price">
+                  <span class="price-item price-item--regular">$380.00</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        {%- endfor -%}
+      {%- endif -%}
+    </div>
+  </div>
+</product-carousel>
+
+{% schema %}
+{
+  "name": "t:general.product_carousel",
+  "settings": [
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "t:labels.collection"
+    },
+    {
+      "type": "text",
+      "id": "kicker",
+      "label": "t:labels.kicker",
+      "default": "New Arrivals"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "t:labels.heading",
+      "default": "Autumn / Winter Capsule"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 4,
+      "max": 12,
+      "step": 1,
+      "label": "t:labels.products_to_show",
+      "default": 6
+    },
+    {
+      "type": "checkbox",
+      "id": "show_view_all",
+      "label": "t:labels.show_view_all",
+      "default": true
+    }
+  ]
+}
+{% endschema %}

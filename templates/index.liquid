@@ -1,5 +1,39 @@
+{% comment %}
+  Home page composition root.
+  Wraps vertical slices of the editorial experience in container blocks.
+{% endcomment %}
+
+{%- # Slice 1: Editorial Hero Tile -%}
+{% block 'container', tag: 'div' %}
+  {% block 'hero' %}{% endblock %}
+{% endblock %}
+
+{%- # Slice 2: New Arrivals Product Carousel -%}
 {% block 'container' %}
-  {% block 'hello-world' %}
-    {% block 'liquid-tips', tips: ['hello_world.liquid_tips_1', 'hello_world.liquid_tips_2', 'hello_world.liquid_tips_3'] %}{% endblock %}
-  {% endblock %}
+  {% block 'product-carousel' %}{% endblock %}
+{% endblock %}
+
+{%- # Slice 3: Atelier Philosophy Rich Text -%}
+{% block 'container' %}
+  {% block 'rich-text' %}{% endblock %}
+{% endblock %}
+
+{%- # Slice 4: Full-Bleed Lookbook Editorial Banner -%}
+{% block 'container', tag: 'div' %}
+  {% block 'editorial-banner' %}{% endblock %}
+{% endblock %}
+
+{%- # Slice 5: Craftsmanship Image With Text -%}
+{% block 'container' %}
+  {% block 'image-with-text' %}{% endblock %}
+{% endblock %}
+
+{%- # Slice 6: Curated Collections Grid -%}
+{% block 'container' %}
+  {% block 'collection-grid' %}{% endblock %}
+{% endblock %}
+
+{%- # Slice 7: Private Salon Newsletter -%}
+{% block 'container', tag: 'div' %}
+  {% block 'newsletter' %}{% endblock %}
 {% endblock %}

@@ -23,6 +23,8 @@ const HTML_CONTENT = `<!doctype html>
       --font-primary--style: normal;
       --font-primary--weight: 400;
       --font-ui--family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --font-heading: var(--font-primary--family);
+      --font-body: var(--font-ui--family);
 
       --font-label-size: 0.6875rem;
       --font-label-tracking: 0.14em;
@@ -32,10 +34,31 @@ const HTML_CONTENT = `<!doctype html>
       --font-h2: clamp(1.5rem, 3vw, 2.75rem);
       --font-h3: clamp(1.125rem, 2vw, 1.5rem);
 
+      --text-2xs: 0.6875rem;
+      --text-xs: 0.75rem;
+      --text-sm: 0.875rem;
+      --text-base: 0.9375rem;
+      --text-lg: 1.125rem;
+      --text-xl: 1.35rem;
+      --text-2xl: clamp(1.5rem, 2.5vw, 2rem);
+      --text-3xl: clamp(1.85rem, 3.5vw, 2.75rem);
+      --text-4xl: clamp(2.25rem, 5vw, 4rem);
+
+      --tracking-wide: 0.04em;
+      --tracking-wider: 0.08em;
+      --tracking-widest: 0.14em;
+
+      --leading-tight: 1.2;
+      --leading-normal: 1.5;
+      --leading-relaxed: 1.7;
+
       --color-background: #FFFFFF;
       --color-foreground: #0A0A0A;
+      --color-foreground-muted: #666666;
       --color-accent: #C8A97E;
+      --color-sand: #C8A97E;
       --color-border: #E8E8E8;
+      --color-surface: #F8F7F5;
       
       --color-grey-100: #F7F7F7;
       --color-grey-200: #EAEAEA;
@@ -89,11 +112,16 @@ const HTML_CONTENT = `<!doctype html>
   <link rel="stylesheet" href="/assets/header.css">
   <link rel="stylesheet" href="/assets/footer.css">
   <link rel="stylesheet" href="/assets/modal.css">
+  <link rel="stylesheet" href="/assets/hero.css">
+  <link rel="stylesheet" href="/assets/badges.css">
+  <link rel="stylesheet" href="/assets/product-card.css">
+  <link rel="stylesheet" href="/assets/sections.css">
   <link rel="stylesheet" href="/assets/base.css">
 
   <script src="/assets/utils.js" defer></script>
   <script src="/assets/announcement-bar.js" defer></script>
   <script src="/assets/header.js" defer></script>
+  <script src="/assets/carousel.js" defer></script>
   <script src="/assets/cookie-banner.js" defer></script>
 </head>
 <body>
@@ -361,21 +389,347 @@ const HTML_CONTENT = `<!doctype html>
     </div>
   </site-header>
 
-  <!-- Main Content Mock -->
-  <main id="MainContent" class="main-content" role="main" tabindex="-1" style="min-height: 70vh; padding: 4rem 2rem; max-width: 110rem; margin: 0 auto;">
-    <div style="border: 1px solid var(--color-border); padding: 4rem 2rem; text-align: center; background-color: var(--color-grey-100);">
-      <span style="font-family: var(--font-ui--family); font-size: var(--font-label-size); letter-spacing: var(--font-label-tracking); text-transform: uppercase; color: var(--color-accent); display: block; margin-bottom: 1rem;">
-        Autumn / Winter 2026 Collection
-      </span>
-      <h2 style="font-family: var(--font-primary--family); font-size: clamp(2rem, 4vw, 3.5rem); font-weight: 300; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 1.5rem;">
-        Architectural Silhouettes & Natural Fibers
-      </h2>
-      <p style="max-width: 48ch; margin: 0 auto 2rem; color: var(--color-grey-700); font-size: 1.0625rem; line-height: 1.7;">
-        An exploration of volume, pure geometry, and timeless luxury. Created for individuals who appreciate the harmony between form and textile.
-      </p>
-      <a href="/collections/all" style="display: inline-block; background-color: var(--color-foreground); color: var(--color-background); font-family: var(--font-ui--family); font-size: 0.75rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; padding: 1rem 2.5rem; text-decoration: none;">
-        Discover The Capsule
-      </a>
+  <!-- Main Content: Editorial Homepage -->
+  <main id="MainContent" class="main-content" role="main" tabindex="-1">
+    <!-- Slice 1: Hero Section (1-up) -->
+    <div class="block-container" style="--text-align: center;">
+      <div class="hero-section hero-section--1-up full-width" style="--hero-overlay-opacity: 0.35;">
+        <div class="hero-tile hero-tile--1 hero-tile--align-center">
+          <div class="hero-tile__media">
+            <svg class="placeholder-svg hero-tile__placeholder" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" fill="#181818" xmlns="http://www.w3.org/2000/svg">
+              <rect width="100%" height="100%" fill="#1a1a1a"/>
+              <text x="50%" y="50%" fill="#333333" font-size="28" font-family="system-ui" text-anchor="middle" dominant-baseline="middle" letter-spacing="0.2em">ATELIER AUTUMN / WINTER 2026</text>
+            </svg>
+            <div class="hero-tile__overlay"></div>
+          </div>
+          <div class="hero-tile__content">
+            <span class="hero-tile__kicker">Autumn / Winter 2026</span>
+            <h2 class="hero-tile__heading">Architectural Silhouettes</h2>
+            <p class="hero-tile__subheading">Pure geometry and tailored volume rendered in Italian double-faced cashmere and raw Japanese denim.</p>
+            <div class="hero-tile__cta-wrap">
+              <a href="/collections/all" class="button button--hero">
+                Explore Collection
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slice 2: Product Carousel -->
+    <section class="block-container" style="--text-align: left;">
+      <product-carousel class="product-carousel">
+        <div class="product-carousel__header">
+          <div class="product-carousel__headings">
+            <span class="product-carousel__kicker">New Arrivals</span>
+            <h2 class="product-carousel__title">Autumn / Winter Capsule</h2>
+          </div>
+          <div class="product-carousel__controls">
+            <a href="/collections/all" class="product-carousel__view-all">View All</a>
+            <div class="product-carousel__nav-btns">
+              <button type="button" class="carousel-nav-btn carousel-nav-btn--prev" aria-label="Previous" data-direction="prev">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25"><polyline points="15 18 9 12 15 6"></polyline></svg>
+              </button>
+              <button type="button" class="carousel-nav-btn carousel-nav-btn--next" aria-label="Next" data-direction="next">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25"><polyline points="9 18 15 12 9 6"></polyline></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="product-carousel__track-container">
+          <div class="product-carousel__track" role="list" tabindex="0">
+            <!-- Product 1 -->
+            <div class="product-carousel__slide" role="listitem">
+              <div class="product-card" data-product-id="1">
+                <div class="product-card__media-wrapper">
+                  <a href="/products/cashmere-overcoat" class="product-card__media-link" aria-label="Double-Faced Cashmere Overcoat">
+                    <div class="product-card__image-container has-secondary-image">
+                      <svg class="placeholder-svg product-card__image product-card__image--primary" viewBox="0 0 600 800" fill="#222">
+                        <rect width="100%" height="100%" fill="#F5F3EF"/>
+                        <text x="50%" y="45%" fill="#888" font-size="14" font-family="system-ui" text-anchor="middle" letter-spacing="0.1em">CASHMERE OVERCOAT</text>
+                        <text x="50%" y="55%" fill="#AAA" font-size="11" font-family="system-ui" text-anchor="middle" letter-spacing="0.15em">STUDIO FRONT</text>
+                      </svg>
+                      <svg class="placeholder-svg product-card__image product-card__image--secondary" viewBox="0 0 600 800" fill="#222">
+                        <rect width="100%" height="100%" fill="#EBE7DF"/>
+                        <text x="50%" y="45%" fill="#888" font-size="14" font-family="system-ui" text-anchor="middle" letter-spacing="0.1em">CASHMERE OVERCOAT</text>
+                        <text x="50%" y="55%" fill="#AAA" font-size="11" font-family="system-ui" text-anchor="middle" letter-spacing="0.15em">BACK DRAPE</text>
+                      </svg>
+                    </div>
+                  </a>
+                  <div class="product-card__badges">
+                    <span class="badge badge--new">New</span>
+                  </div>
+                </div>
+                <div class="product-card__info">
+                  <h3 class="product-card__title">
+                    <a href="/products/cashmere-overcoat">Double-Faced Cashmere Overcoat</a>
+                  </h3>
+                  <div class="price">
+                    <span class="price-item price-item--regular">$1,450.00</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Product 2 -->
+            <div class="product-carousel__slide" role="listitem">
+              <div class="product-card" data-product-id="2">
+                <div class="product-card__media-wrapper">
+                  <a href="/products/sculptural-blazer" class="product-card__media-link" aria-label="Sculptural Wool Blazer">
+                    <div class="product-card__image-container">
+                      <svg class="placeholder-svg product-card__image product-card__image--primary" viewBox="0 0 600 800" fill="#222">
+                        <rect width="100%" height="100%" fill="#F0EDE6"/>
+                        <text x="50%" y="45%" fill="#888" font-size="14" font-family="system-ui" text-anchor="middle" letter-spacing="0.1em">SCULPTURAL BLAZER</text>
+                        <text x="50%" y="55%" fill="#AAA" font-size="11" font-family="system-ui" text-anchor="middle" letter-spacing="0.15em">VIRGIN WOOL</text>
+                      </svg>
+                    </div>
+                  </a>
+                  <div class="product-card__badges">
+                    <span class="badge badge--new">New</span>
+                  </div>
+                </div>
+                <div class="product-card__info">
+                  <h3 class="product-card__title">
+                    <a href="/products/sculptural-blazer">Sculptural Virgin Wool Blazer</a>
+                  </h3>
+                  <div class="price">
+                    <span class="price-item price-item--regular">$890.00</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Product 3 -->
+            <div class="product-carousel__slide" role="listitem">
+              <div class="product-card" data-product-id="3">
+                <div class="product-card__media-wrapper">
+                  <a href="/products/selvage-denim" class="product-card__media-link" aria-label="Raw Selvage Denim Trouser">
+                    <div class="product-card__image-container">
+                      <svg class="placeholder-svg product-card__image product-card__image--primary" viewBox="0 0 600 800" fill="#222">
+                        <rect width="100%" height="100%" fill="#E9ECEF"/>
+                        <text x="50%" y="45%" fill="#888" font-size="14" font-family="system-ui" text-anchor="middle" letter-spacing="0.1em">SELVAGE DENIM</text>
+                        <text x="50%" y="55%" fill="#AAA" font-size="11" font-family="system-ui" text-anchor="middle" letter-spacing="0.15em">14OZ JAPANESE</text>
+                      </svg>
+                    </div>
+                  </a>
+                  <div class="product-card__badges">
+                    <span class="badge badge--sale">Sale</span>
+                  </div>
+                </div>
+                <div class="product-card__info">
+                  <h3 class="product-card__title">
+                    <a href="/products/selvage-denim">Raw Selvage Denim Trouser</a>
+                  </h3>
+                  <div class="price price--on-sale">
+                    <s class="price-item price-item--compare">$420.00</s>
+                    <span class="price-item price-item--sale">$340.00</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Product 4 -->
+            <div class="product-carousel__slide" role="listitem">
+              <div class="product-card" data-product-id="4">
+                <div class="product-card__media-wrapper">
+                  <a href="/products/silk-turtleneck" class="product-card__media-link" aria-label="Seamless Silk Turtleneck">
+                    <div class="product-card__image-container">
+                      <svg class="placeholder-svg product-card__image product-card__image--primary" viewBox="0 0 600 800" fill="#222">
+                        <rect width="100%" height="100%" fill="#F8F7F4"/>
+                        <text x="50%" y="45%" fill="#888" font-size="14" font-family="system-ui" text-anchor="middle" letter-spacing="0.1em">SILK TURTLENECK</text>
+                        <text x="50%" y="55%" fill="#AAA" font-size="11" font-family="system-ui" text-anchor="middle" letter-spacing="0.15em">FINE GAUGE</text>
+                      </svg>
+                    </div>
+                  </a>
+                </div>
+                <div class="product-card__info">
+                  <h3 class="product-card__title">
+                    <a href="/products/silk-turtleneck">Seamless Silk Turtleneck</a>
+                  </h3>
+                  <div class="price">
+                    <span class="price-item price-item--regular">$360.00</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Product 5 -->
+            <div class="product-carousel__slide" role="listitem">
+              <div class="product-card" data-product-id="5">
+                <div class="product-card__media-wrapper">
+                  <a href="/products/leather-tote" class="product-card__media-link" aria-label="Atelier Calfskin Tote">
+                    <div class="product-card__image-container">
+                      <svg class="placeholder-svg product-card__image product-card__image--primary" viewBox="0 0 600 800" fill="#222">
+                        <rect width="100%" height="100%" fill="#F2EFE9"/>
+                        <text x="50%" y="45%" fill="#888" font-size="14" font-family="system-ui" text-anchor="middle" letter-spacing="0.1em">CALFSKIN TOTE</text>
+                        <text x="50%" y="55%" fill="#AAA" font-size="11" font-family="system-ui" text-anchor="middle" letter-spacing="0.15em">VEGETABLE TANNED</text>
+                      </svg>
+                    </div>
+                  </a>
+                </div>
+                <div class="product-card__info">
+                  <h3 class="product-card__title">
+                    <a href="/products/leather-tote">Atelier Calfskin Tote</a>
+                  </h3>
+                  <div class="price">
+                    <span class="price-item price-item--regular">$780.00</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </product-carousel>
+    </section>
+
+    <!-- Slice 3: Philosophy Rich Text -->
+    <section class="block-container" style="--text-align: center;">
+      <div class="rich-text rich-text--align-center">
+        <div class="rich-text__inner">
+          <span class="rich-text__kicker">The Philosophy</span>
+          <h2 class="rich-text__heading">Made to Endure, Designed with Intention</h2>
+          <div class="rich-text__body">
+            <p>Each garment originates from a dialogue between raw organic material and structural discipline. We eliminate unnecessary ornament to honor proportion, drape, and tactile longevity.</p>
+          </div>
+          <div class="rich-text__cta">
+            <a href="/pages/about" class="button button--secondary">
+              About the Atelier
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slice 4: Full-Bleed Editorial Banner -->
+    <div class="block-container" style="--text-align: left;">
+      <div class="editorial-banner full-width">
+        <div class="editorial-banner__media">
+          <svg class="placeholder-svg editorial-banner__img" viewBox="0 0 1600 800" preserveAspectRatio="xMidYMid slice" fill="#222" xmlns="http://www.w3.org/2000/svg">
+            <rect width="100%" height="100%" fill="#202020"/>
+            <text x="50%" y="50%" fill="#444" font-size="24" font-family="system-ui" text-anchor="middle" letter-spacing="0.2em">ATELIER LOOKBOOK — NORMANDY COAST</text>
+          </svg>
+          <div class="editorial-banner__overlay"></div>
+        </div>
+        <div class="editorial-banner__container">
+          <div class="editorial-banner__content editorial-banner__content--left">
+            <span class="editorial-banner__kicker">Atelier Lookbook — Vol. 04</span>
+            <h2 class="editorial-banner__heading">The Form of Quietude</h2>
+            <p class="editorial-banner__text">Captured in the raw coastal light of Normandy. Monochromatic tailoring, double-faced cashmere overcoats, and Japanese raw denim rendered in sculptural simplicity.</p>
+            <a href="/collections/all" class="button button--editorial">
+              Discover the Lookbook
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slice 5: Image With Text -->
+    <section class="block-container" style="--text-align: left;">
+      <div class="image-with-text image-with-text--image_first">
+        <div class="image-with-text__inner">
+          <div class="image-with-text__media">
+            <svg class="placeholder-svg image-with-text__img" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice" fill="#222" xmlns="http://www.w3.org/2000/svg">
+              <rect width="100%" height="100%" fill="#EDEAE3"/>
+              <text x="50%" y="50%" fill="#999" font-size="16" font-family="system-ui" text-anchor="middle" letter-spacing="0.15em">TEXTILE CRAFT ARCHIVE</text>
+            </svg>
+          </div>
+          <div class="image-with-text__content">
+            <span class="image-with-text__kicker">Textile Provenance</span>
+            <h2 class="image-with-text__heading">Italian Double-Faced Cashmere</h2>
+            <div class="image-with-text__text">
+              <p>Spun in Biella, Italy from exceptionally fine fibers. Each piece is unlined to reveal the mastery of split-seam hand-finishing, providing featherweight warmth without stiffness.</p>
+            </div>
+            <div class="image-with-text__cta">
+              <a href="/collections/coats" class="button button--secondary">
+                Explore Outerwear
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slice 6: Curated Collections Grid -->
+    <section class="block-container" style="--text-align: center;">
+      <div class="collection-grid-section">
+        <div class="collection-grid__header">
+          <span class="collection-grid__kicker">Curated Editions</span>
+          <h2 class="collection-grid__title">Shop By Category</h2>
+        </div>
+        <div class="collection-grid__items">
+          <!-- Col 1 -->
+          <a href="/collections/tailoring" class="collection-tile">
+            <div class="collection-tile__media">
+              <svg class="placeholder-svg collection-tile__image" viewBox="0 0 600 800" fill="#222">
+                <rect width="100%" height="100%" fill="#E3DFD7"/>
+                <text x="50%" y="50%" fill="#777" font-size="16" font-family="system-ui" text-anchor="middle" letter-spacing="0.15em">TAILORING</text>
+              </svg>
+              <div class="collection-tile__overlay"></div>
+            </div>
+            <div class="collection-tile__content">
+              <h3 class="collection-tile__name">Tailoring & Coats</h3>
+              <span class="collection-tile__link-text">Discover</span>
+            </div>
+          </a>
+
+          <!-- Col 2 -->
+          <a href="/collections/knitwear" class="collection-tile">
+            <div class="collection-tile__media">
+              <svg class="placeholder-svg collection-tile__image" viewBox="0 0 600 800" fill="#222">
+                <rect width="100%" height="100%" fill="#DDD8CE"/>
+                <text x="50%" y="50%" fill="#777" font-size="16" font-family="system-ui" text-anchor="middle" letter-spacing="0.15em">KNITWEAR</text>
+              </svg>
+              <div class="collection-tile__overlay"></div>
+            </div>
+            <div class="collection-tile__content">
+              <h3 class="collection-tile__name">Cashmere Knitwear</h3>
+              <span class="collection-tile__link-text">Discover</span>
+            </div>
+          </a>
+
+          <!-- Col 3 -->
+          <a href="/collections/accessories" class="collection-tile">
+            <div class="collection-tile__media">
+              <svg class="placeholder-svg collection-tile__image" viewBox="0 0 600 800" fill="#222">
+                <rect width="100%" height="100%" fill="#D5CFC3"/>
+                <text x="50%" y="50%" fill="#777" font-size="16" font-family="system-ui" text-anchor="middle" letter-spacing="0.15em">LEATHER GOODS</text>
+              </svg>
+              <div class="collection-tile__overlay"></div>
+            </div>
+            <div class="collection-tile__content">
+              <h3 class="collection-tile__name">Leather & Accessories</h3>
+              <span class="collection-tile__link-text">Discover</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slice 7: Dedicated Newsletter -->
+    <div class="block-container" style="--text-align: center;">
+      <div class="newsletter-section">
+        <div class="newsletter-section__inner">
+          <span class="newsletter-section__kicker">Join the Circle</span>
+          <h2 class="newsletter-section__heading">Private Invitations & Release Access</h2>
+          <p class="newsletter-section__subheading">Subscribers receive inaugural capsule preview access, private salon appointments, and editorial monographs.</p>
+          <form class="newsletter-section__form" action="#" method="post">
+            <div class="newsletter-section__field-row">
+              <label for="HomeNewsletterEmail" class="visually-hidden">Email address</label>
+              <input
+                id="HomeNewsletterEmail"
+                type="email"
+                name="email"
+                class="newsletter-section__input"
+                placeholder="Enter your email"
+                required
+              >
+              <button type="submit" class="button--newsletter">
+                Subscribe
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
   </main>
 

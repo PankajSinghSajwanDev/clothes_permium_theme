@@ -19,6 +19,10 @@
     {{ 'a11y.css' | asset_url | stylesheet_tag }}
     {{ 'header.css' | asset_url | stylesheet_tag }}
     {{ 'footer.css' | asset_url | stylesheet_tag }}
+    {{ 'hero.css' | asset_url | stylesheet_tag }}
+    {{ 'badges.css' | asset_url | stylesheet_tag }}
+    {{ 'product-card.css' | asset_url | stylesheet_tag }}
+    {{ 'sections.css' | asset_url | stylesheet_tag }}
     {{ 'base.css' | asset_url | stylesheet_tag }}
 
     {% # Meta tags, title, open graph %}
@@ -30,6 +34,7 @@
     <script src="{{ 'utils.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'announcement-bar.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'header.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'carousel.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'cookie-banner.js' | asset_url }}" defer="defer"></script>
   </head>
 

@@ -1,0 +1,43 @@
+/* Maison Luxury Status Badges */
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-ui--family);
+  font-size: var(--font-label-size, 0.6875rem);
+  font-weight: 500;
+  letter-spacing: var(--font-label-tracking, 0.14em);
+  text-transform: uppercase;
+  padding: 0.35rem 0.75rem;
+  line-height: 1;
+  border-radius: 0;
+  white-space: nowrap;
+}
+
+.badge--new {
+  background-color: var(--color-foreground, #0A0A0A);
+  color: var(--color-background, #FFFFFF);
+}
+
+.badge--sale {
+  background-color: var(--color-accent, #C8A97E);
+  color: var(--color-background, #FFFFFF);
+}
+
+.badge--sold_out {
+  background-color: var(--color-grey-100, #F7F7F7);
+  color: var(--color-grey-700, #333333);
+  border: 1px solid var(--color-border, #E8E8E8);
+}
+
+.badge--preorder {
+  background-color: transparent;
+  color: var(--color-foreground, #0A0A0A);
+  border: 1px solid var(--color-foreground, #0A0A0A);
+}
+
+.badge--low_stock {
+  background-color: var(--color-error, #B5292C);
+  color: var(--color-background, #FFFFFF);
+}
