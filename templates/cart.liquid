@@ -1,4 +1,4 @@
-{% block 'container' %}
+<div class="block-container page-width">
   <h1>{{ 'cart.title' | t }}</h1>
 
   <form action="{{ routes.cart_url }}" method="post">
@@ -26,4 +26,4 @@
   <div class="cart-localization">
     {% render 'localization-form' %}
   </div>
-{% endblock %}
+</div>

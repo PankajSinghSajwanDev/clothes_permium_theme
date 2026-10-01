@@ -9,7 +9,6 @@
     role="region"
     aria-label="{{ 'cookie.banner_title' | t }}"
     hidden
-    {{ block.shopify_attributes }}
   >
     <div class="cookie-banner__inner">
       <div class="cookie-banner__content">
@@ -43,10 +42,3 @@
     </div>
   </cookie-banner>
 {%- endif -%}
-
-{% schema %}
-{
-  "name": "t:general.cookie_banner",
-  "settings": []
-}
-{% endschema %}

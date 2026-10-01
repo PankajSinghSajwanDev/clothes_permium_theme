@@ -15,7 +15,8 @@
     "back": "Back",
     "loading": "Loading...",
     "error": "Error",
-    "scroll_to_top": "Scroll to top"
+    "scroll_to_top": "Scroll to top",
+    "main_menu": "Main navigation menu"
   },
   "hello_world": {
     "title": "Hello, World!",
@@ -96,11 +97,16 @@
     "remove": "Remove",
     "quantity": "Quantity",
     "subtotal": "Subtotal",
+    "taxes_and_shipping": "Taxes and shipping calculated at checkout",
     "taxes_and_shipping_at_checkout": "Taxes and shipping calculated at checkout",
     "note": "Add order instructions",
     "note_placeholder": "Special instructions regarding delivery...",
     "free_shipping_remaining_html": "Add {{ amount }} more for complimentary shipping",
-    "free_shipping_unlocked": "You have unlocked complimentary express shipping"
+    "free_shipping_unlocked": "You have unlocked complimentary express shipping",
+    "items_count": {
+      "one": "{{ count }} item",
+      "other": "{{ count }} items"
+    }
   },
   "customers": {
     "login": {

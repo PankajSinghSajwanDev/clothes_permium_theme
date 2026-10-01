@@ -1,0 +1,146 @@
+{% doc %}
+  Renders a full-bleed editorial hero block with 1-up or 2-up split layouts.
+  @param {string} [layout] - Layout style ('1-up' or '2-up')
+  @param {string} [alignment] - Alignment ('left', 'center', 'right')
+  @param {number} [overlay_opacity] - Overlay darkness percentage
+  @param {image} [image_1] - Primary image
+  @param {image} [image_mobile_1] - Mobile primary image
+  @param {string} [kicker_1] - Pre-heading text for tile 1
+  @param {string} [heading_1] - Main heading text for tile 1
+  @param {string} [subheading_1] - Narrative text for tile 1
+  @param {string} [button_label_1] - Button label for tile 1
+  @param {string} [button_link_1] - Button destination URL for tile 1
+  @param {image} [image_2] - Secondary image for tile 2
+  @param {image} [image_mobile_2] - Mobile secondary image for tile 2
+  @param {string} [kicker_2] - Pre-heading text for tile 2
+  @param {string} [heading_2] - Main heading text for tile 2
+  @param {string} [subheading_2] - Narrative text for tile 2
+  @param {string} [button_label_2] - Button label for tile 2
+  @param {string} [button_link_2] - Button destination URL for tile 2
+{% enddoc %}
+
+{%- liquid
+  assign hero_layout = layout | default: '1-up'
+  assign alignment = alignment | default: 'center'
+  assign hero_kicker_1 = kicker_1 | default: 'Autumn / Winter 2026'
+  assign hero_heading_1 = heading_1 | default: 'Architectural Silhouettes'
+  assign hero_subheading_1 = subheading_1 | default: 'Pure geometry and tailored volume rendered in Italian double-faced cashmere and raw Japanese denim.'
+  assign hero_button_label_1 = button_label_1 | default: 'Explore Collection'
+  assign hero_button_link_1 = button_link_1 | default: routes.all_products_collection_url
+-%}
+
+<div
+  class="hero-section hero-section--{{ hero_layout }} full-width"
+  style="--hero-overlay-opacity: {{ overlay_opacity | default: 35 | divided_by: 100.0 }};"
+>
+  {%- # Tile 1 -%}
+  <div class="hero-tile hero-tile--1 hero-tile--align-{{ alignment }}">
+    <div class="hero-tile__media">
+      {%- if image_1 != blank -%}
+        <picture>
+          {%- if image_mobile_1 != blank -%}
+            <source
+              media="(max-width: 767px)"
+              srcset="{{ image_mobile_1 | image_url: width: 750 }} 1x, {{ image_mobile_1 | image_url: width: 1500 }} 2x"
+            >
+          {%- endif -%}
+          {{ image_1 | image_url: width: 2400 | image_tag:
+            class: 'hero-tile__image',
+            widths: '750, 1100, 1500, 1920, 2400',
+            sizes: '100vw',
+            fetchpriority: 'high',
+            loading: 'eager',
+            alt: hero_heading_1 | default: shop.name | escape
+          }}
+        </picture>
+      {%- else -%}
+        <div class="hero-tile__placeholder">
+          {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+        </div>
+      {%- endif -%}
+
+      <div class="hero-tile__overlay"></div>
+    </div>
+
+    <div class="hero-tile__content">
+      {%- if hero_kicker_1 != blank -%}
+        <span class="hero-tile__kicker">{{ hero_kicker_1 }}</span>
+      {%- endif -%}
+
+      {%- if hero_heading_1 != blank -%}
+        <h2 class="hero-tile__heading">{{ hero_heading_1 }}</h2>
+      {%- endif -%}
+
+      {%- if hero_subheading_1 != blank -%}
+        <p class="hero-tile__subheading">{{ hero_subheading_1 }}</p>
+      {%- endif -%}
+
+      {%- if hero_button_label_1 != blank -%}
+        <div class="hero-tile__cta-wrap">
+          <a
+            href="{{ hero_button_link_1 }}"
+            class="button button--hero"
+          >
+            {{ hero_button_label_1 }}
+          </a>
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+
+  {%- # Tile 2 (if 2-up layout) -%}
+  {%- if hero_layout == '2-up' -%}
+    <div class="hero-tile hero-tile--2 hero-tile--align-{{ alignment }}">
+      <div class="hero-tile__media">
+        {%- if image_2 != blank -%}
+          <picture>
+            {%- if image_mobile_2 != blank -%}
+              <source
+                media="(max-width: 767px)"
+                srcset="{{ image_mobile_2 | image_url: width: 750 }} 1x, {{ image_mobile_2 | image_url: width: 1500 }} 2x"
+              >
+            {%- endif -%}
+            {{ image_2 | image_url: width: 1600 | image_tag:
+              class: 'hero-tile__image',
+              widths: '750, 1100, 1600',
+              sizes: '(min-width: 768px) 50vw, 100vw',
+              loading: 'lazy',
+              alt: heading_2 | default: shop.name | escape
+            }}
+          </picture>
+        {%- else -%}
+          <div class="hero-tile__placeholder">
+            {{ 'lifestyle-2' | placeholder_svg_tag: 'placeholder-svg' }}
+          </div>
+        {%- endif -%}
+
+        <div class="hero-tile__overlay"></div>
+      </div>
+
+      <div class="hero-tile__content">
+        {%- if kicker_2 != blank -%}
+          <span class="hero-tile__kicker">{{ kicker_2 }}</span>
+        {%- endif -%}
+
+        {%- if heading_2 != blank -%}
+          <h2 class="hero-tile__heading">{{ heading_2 }}</h2>
+        {%- endif -%}
+
+        {%- if subheading_2 != blank -%}
+          <p class="hero-tile__subheading">{{ subheading_2 }}</p>
+        {%- endif -%}
+
+        {%- if button_label_2 != blank -%}
+          <div class="hero-tile__cta-wrap">
+            <a
+              href="{{ button_link_2 | default: routes.all_products_collection_url }}"
+              class="button button--hero"
+            >
+              {{ button_label_2 }}
+            </a>
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+  {%- endif -%}
+</div>

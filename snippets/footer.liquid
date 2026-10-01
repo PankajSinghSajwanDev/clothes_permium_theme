@@ -4,7 +4,10 @@
   region/language localization, and payment types.
 {% enddoc %}
 
-<footer class="site-footer" {{ block.shopify_attributes }}>
+{%- assign footer_menu = linklists.footer -%}
+{%- assign secondary_menu = linklists['footer-secondary'] | default: linklists.footer -%}
+
+<footer class="site-footer">
   <div class="site-footer__inner">
     <div class="site-footer__grid">
       {%- # Column 1: Brand Atelier Information -%}
@@ -77,14 +80,14 @@
 
       {%- # Column 2: Primary Navigation Menu -%}
       <div class="site-footer__col site-footer__col--nav">
-        {%- if block.settings.menu != blank -%}
+        {%- if footer_menu != blank and footer_menu.links.size > 0 -%}
           <details class="site-footer__accordion" open>
             <summary class="site-footer__heading">
-              <span>{{ block.settings.menu.title | default: 'Collection' }}</span>
+              <span>{{ footer_menu.title | default: 'Collection' }}</span>
               {% render 'icon', name: 'chevron-down', class: 'accordion-icon' %}
             </summary>
             <ul class="site-footer__list" role="list">
-              {%- for link in block.settings.menu.links -%}
+              {%- for link in footer_menu.links -%}
                 <li>
                   <a href="{{ link.url }}" class="site-footer__link">
                     {{ link.title }}
@@ -98,14 +101,14 @@
 
       {%- # Column 3: Secondary / Customer Care Menu -%}
       <div class="site-footer__col site-footer__col--nav">
-        {%- if block.settings.secondary_menu != blank -%}
+        {%- if secondary_menu != blank and secondary_menu.links.size > 0 -%}
           <details class="site-footer__accordion" open>
             <summary class="site-footer__heading">
-              <span>{{ block.settings.secondary_menu.title | default: 'Client Services' }}</span>
+              <span>{{ secondary_menu.title | default: 'Client Services' }}</span>
               {% render 'icon', name: 'chevron-down', class: 'accordion-icon' %}
             </summary>
             <ul class="site-footer__list" role="list">
-              {%- for link in block.settings.secondary_menu.links -%}
+              {%- for link in secondary_menu.links -%}
                 <li>
                   <a href="{{ link.url }}" class="site-footer__link">
                     {{ link.title }}
@@ -196,22 +199,3 @@
     </div>
   </div>
 </footer>
-
-{% schema %}
-{
-  "name": "t:general.footer",
-  "settings": [
-    {
-      "type": "link_list",
-      "id": "menu",
-      "label": "t:labels.menu",
-      "default": "footer"
-    },
-    {
-      "type": "link_list",
-      "id": "secondary_menu",
-      "label": "t:labels.footer_menu"
-    }
-  ]
-}
-{% endschema %}

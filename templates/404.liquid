@@ -1,12 +1,12 @@
-{% block 'container' %}
+<div class="block-container page-width" style="padding: 4rem 1rem; text-align: center;">
   <h1>{{ '404.title' | t }}</h1>
 
   <p>
     {{ '404.not_found' | t }}
   </p>
 
-  <a href="{{ routes.all_products_collection_url }}">
+  <a href="{{ routes.all_products_collection_url }}" class="button button--secondary">
     {{ '404.back_to_shopping' | t }}
     {% render 'icon', name: 'arrow-right' %}
   </a>
-{% endblock %}
+</div>

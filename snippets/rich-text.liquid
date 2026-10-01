@@ -1,0 +1,48 @@
+{% doc %}
+  Renders a centered editorial rich text block with kicker, architectural heading,
+  narrative philosophy copy, and an optional button link.
+  @param {string} [alignment] - Alignment ('left', 'center', 'right')
+  @param {string} [kicker] - Pre-heading philosophy tag
+  @param {string} [heading] - Atelier headline
+  @param {string} [text] - Body description
+  @param {string} [button_label] - Action button text
+  @param {string} [button_link] - Action button URL
+{% enddoc %}
+
+{%- liquid
+  assign rich_alignment = alignment | default: 'center'
+  assign rich_kicker = kicker | default: 'The Philosophy'
+  assign rich_heading = heading | default: 'Made to Endure, Designed with Intention'
+  assign rich_text = text | default: 'Each garment originates from a dialogue between raw organic material and structural discipline. We eliminate unnecessary ornament to honor proportion, drape, and tactile longevity.'
+  assign rich_button_label = button_label | default: 'About the Atelier'
+  assign rich_button_link = button_link | default: routes.all_products_collection_url
+-%}
+
+<div class="rich-text rich-text--align-{{ rich_alignment }}">
+  <div class="rich-text__inner">
+    {%- if rich_kicker != blank -%}
+      <span class="rich-text__kicker">{{ rich_kicker }}</span>
+    {%- endif -%}
+
+    {%- if rich_heading != blank -%}
+      <h2 class="rich-text__heading">{{ rich_heading }}</h2>
+    {%- endif -%}
+
+    {%- if rich_text != blank -%}
+      <div class="rich-text__body">
+        <p>{{ rich_text }}</p>
+      </div>
+    {%- endif -%}
+
+    {%- if rich_button_label != blank -%}
+      <div class="rich-text__cta">
+        <a
+          href="{{ rich_button_link }}"
+          class="button button--secondary"
+        >
+          {{ rich_button_label }}
+        </a>
+      </div>
+    {%- endif -%}
+  </div>
+</div>

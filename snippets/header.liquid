@@ -3,11 +3,12 @@
   3-level mega menu, right utilities (search, account, cart), and accessible mobile drawer.
 {% enddoc %}
 
+{%- assign main_menu = linklists['main-menu'] -%}
+
 <site-header
   class="site-header"
   data-sticky="{{ settings.enable_sticky_header }}"
   data-hide-on-scroll="{{ settings.hide_header_on_scroll }}"
-  {{ block.shopify_attributes }}
 >
   <div class="header__inner">
     {%- # Left Section: Mobile Toggle & Desktop Nav -%}
@@ -25,7 +26,7 @@
 
       <nav class="header__nav desktop-only" aria-label="{{ 'header.navigation' | t }}">
         <ul class="header__nav-list" role="list">
-          {%- for link in block.settings.menu.links -%}
+          {%- for link in main_menu.links -%}
             {%- assign has_dropdown = false -%}
             {%- if link.links != blank -%}
               {%- assign has_dropdown = true -%}
@@ -55,12 +56,11 @@
                           <a href="{{ child_link.url }}" class="mega-menu__title">
                             {{ child_link.title }}
                           </a>
-
                           {%- if child_link.links != blank -%}
-                            <ul class="mega-menu__sublist" role="list">
+                            <ul class="mega-menu__list" role="list">
                               {%- for grandchild_link in child_link.links -%}
-                                <li>
-                                  <a href="{{ grandchild_link.url }}" class="mega-menu__sublink">
+                                <li class="mega-menu__item">
+                                  <a href="{{ grandchild_link.url }}" class="mega-menu__link">
                                     {{ grandchild_link.title }}
                                   </a>
                                 </li>
@@ -79,39 +79,38 @@
       </nav>
     </div>
 
-    {%- # Center Section: Logo Wordmark -%}
+    {%- # Center Section: Wordmark / Logo -%}
     <div class="header__center">
-      <h1 class="header__logo-wrapper">
-        <a href="{{ routes.root_url }}" class="header__logo-link">
-          {%- if settings.logo_image != blank -%}
-            {{ settings.logo_image | image_url: width: 300 | image_tag:
-              class: 'header__logo-img',
-              alt: shop.name,
-              preload: true
-            }}
-          {%- else -%}
-            <span class="header__logo-text">{{ shop.name }}</span>
-          {%- endif -%}
-        </a>
-      </h1>
+      <a href="{{ routes.root_url }}" class="header__logo-link">
+        {%- if settings.logo_image != blank -%}
+          {{ settings.logo_image | image_url: width: 400 | image_tag:
+            class: 'header__logo-img',
+            widths: '120, 200, 300, 400',
+            sizes: '(max-width: 767px) 120px, 180px',
+            loading: 'eager',
+            alt: shop.name | escape
+          }}
+        {%- else -%}
+          <span class="header__logo-text">{{ shop.name | default: 'MAISON' }}</span>
+        {%- endif -%}
+      </a>
     </div>
 
     {%- # Right Section: Search, Account, Cart -%}
     <div class="header__right">
-      <button
-        type="button"
-        class="header__action-btn"
+      <a
+        href="{{ routes.search_url }}"
+        class="header__icon-btn"
         aria-label="{{ 'header.search' | t }}"
-        aria-controls="SearchOverlay"
         data-action="open-search"
       >
         {% render 'icon', name: 'search' %}
-      </button>
+      </a>
 
       {%- if shop.customer_accounts_enabled -%}
         <a
           href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}"
-          class="header__action-btn desktop-only"
+          class="header__icon-btn desktop-only"
           aria-label="{{ 'header.account' | t }}"
         >
           {% render 'icon', name: 'account' %}
@@ -120,35 +119,34 @@
 
       <a
         href="{{ routes.cart_url }}"
-        class="header__action-btn header__cart-btn"
+        class="header__icon-btn header__cart-btn"
         aria-label="{{ 'header.cart' | t }}"
-        data-action="open-cart"
+        data-action="open-cart-drawer"
       >
-        {% render 'icon', name: 'cart' %}
-        <span
-          class="header__cart-count"
-          data-cart-count="{{ cart.item_count }}"
-          {% if cart.item_count == 0 %}hidden{% endif %}
-        >
+        {% render 'icon', name: 'bag' %}
+        <span class="header__cart-count" aria-hidden="true" data-cart-count>
           {{ cart.item_count }}
+        </span>
+        <span class="visually-hidden">
+          {{ 'cart.items_count' | t: count: cart.item_count }}
         </span>
       </a>
     </div>
   </div>
 
-  {%- # Mobile Navigation Drawer -%}
+  {%- # Mobile Navigation Drawer (Drill-down View) -%}
   <div
     id="MobileNavDrawer"
     class="mobile-nav"
     role="dialog"
     aria-modal="true"
-    aria-label="{{ 'header.menu' | t }}"
+    aria-label="{{ 'accessibility.main_menu' | t }}"
     hidden
   >
     <div class="mobile-nav__overlay" data-action="close-mobile-nav"></div>
-    <div class="mobile-nav__panel">
+    <div class="mobile-nav__inner">
       <div class="mobile-nav__header">
-        <span class="mobile-nav__title">{{ 'header.menu' | t }}</span>
+        <span class="mobile-nav__title">{{ shop.name | default: 'MAISON' }}</span>
         <button
           type="button"
           class="mobile-nav__close"
@@ -163,7 +161,7 @@
         {%- # Main Level -%}
         <div class="mobile-nav__view active" data-view="root">
           <ul class="mobile-nav__list" role="list">
-            {%- for link in block.settings.menu.links -%}
+            {%- for link in main_menu.links -%}
               <li class="mobile-nav__item">
                 {%- if link.links != blank -%}
                   <button
@@ -201,12 +199,15 @@
               </a>
             {%- endif -%}
 
-            {% render 'localization-form' %}
+            {%- # Localization Selectors in Mobile Drawer -%}
+            <div class="mobile-nav__localization">
+              {% render 'localization-form' %}
+            </div>
           </div>
         </div>
 
         {%- # Sub-Levels (Drill-down) -%}
-        {%- for link in block.settings.menu.links -%}
+        {%- for link in main_menu.links -%}
           {%- if link.links != blank -%}
             {%- assign parent_index = forloop.index -%}
             <div class="mobile-nav__view" data-view="view-{{ parent_index }}" hidden>
@@ -289,23 +290,3 @@
     </div>
   </div>
 </site-header>
-
-{% schema %}
-{
-  "name": "t:general.header",
-  "settings": [
-    {
-      "type": "link_list",
-      "id": "menu",
-      "label": "t:labels.menu",
-      "default": "main-menu"
-    },
-    {
-      "type": "link_list",
-      "id": "customer_account_menu",
-      "label": "t:labels.customer_account_menu",
-      "default": "customer-account-main-menu"
-    }
-  ]
-}
-{% endschema %}

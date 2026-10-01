@@ -1,13 +1,11 @@
 {% doc %}
   Renders the storefront announcement bar with optional multiple messages and dismissal support.
-  Composed directly in layout/theme.liquid or templates.
 {% enddoc %}
 
 {%- if settings.announcement_enabled -%}
   <announcement-bar
     class="announcement-bar"
     style="--announcement-bg: {{ settings.announcement_bg }}; --announcement-text: {{ settings.announcement_text_color }};"
-    {{ block.shopify_attributes }}
   >
     <div class="announcement-bar__inner">
       <div class="announcement-bar__messages" role="region" aria-label="{{ 'announcement.title' | t }}">
@@ -47,10 +45,3 @@
     </div>
   </announcement-bar>
 {%- endif -%}
-
-{% schema %}
-{
-  "name": "t:general.announcement_bar",
-  "settings": []
-}
-{% endschema %}

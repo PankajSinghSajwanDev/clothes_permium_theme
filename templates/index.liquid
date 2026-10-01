@@ -1,39 +1,39 @@
 {% comment %}
   Home page composition root.
-  Wraps vertical slices of the editorial experience in container blocks.
+  Renders vertical slices of the luxury editorial experience.
 {% endcomment %}
 
 {%- # Slice 1: Editorial Hero Tile -%}
-{% block 'container', tag: 'div' %}
-  {% block 'hero' %}{% endblock %}
-{% endblock %}
+<div class="block-container">
+  {% render 'hero' %}
+</div>
 
 {%- # Slice 2: New Arrivals Product Carousel -%}
-{% block 'container' %}
-  {% block 'product-carousel' %}{% endblock %}
-{% endblock %}
+<section class="block-container">
+  {% render 'product-carousel' %}
+</section>
 
 {%- # Slice 3: Atelier Philosophy Rich Text -%}
-{% block 'container' %}
-  {% block 'rich-text' %}{% endblock %}
-{% endblock %}
+<section class="block-container">
+  {% render 'rich-text' %}
+</section>
 
 {%- # Slice 4: Full-Bleed Lookbook Editorial Banner -%}
-{% block 'container', tag: 'div' %}
-  {% block 'editorial-banner' %}{% endblock %}
-{% endblock %}
+<div class="block-container">
+  {% render 'editorial-banner' %}
+</div>
 
 {%- # Slice 5: Craftsmanship Image With Text -%}
-{% block 'container' %}
-  {% block 'image-with-text' %}{% endblock %}
-{% endblock %}
+<section class="block-container">
+  {% render 'image-with-text' %}
+</section>
 
 {%- # Slice 6: Curated Collections Grid -%}
-{% block 'container' %}
-  {% block 'collection-grid' %}{% endblock %}
-{% endblock %}
+<section class="block-container">
+  {% render 'collection-grid' %}
+</section>
 
 {%- # Slice 7: Private Salon Newsletter -%}
-{% block 'container', tag: 'div' %}
-  {% block 'newsletter' %}{% endblock %}
-{% endblock %}
+<div class="block-container">
+  {% render 'newsletter' %}
+</div>

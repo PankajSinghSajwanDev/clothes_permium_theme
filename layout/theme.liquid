@@ -43,20 +43,16 @@
       {{ 'accessibility.skip_to_text' | t }}
     </a>
 
-    {% block 'announcement-bar' -%}{%- endblock %}
+    {% render 'announcement-bar' %}
 
-    {% block 'container', tag: 'div' %}
-      {% block 'header' -%}{%- endblock %}
-    {% endblock %}
+    {% render 'header' %}
 
     <main id="MainContent" class="main-content" role="main" tabindex="-1">
       {{ content_for_layout }}
     </main>
 
-    {% block 'container', tag: 'div' %}
-      {% block 'footer' -%}{%- endblock %}
-    {% endblock %}
+    {% render 'footer' %}
 
-    {% block 'cookie-banner' -%}{%- endblock %}
+    {% render 'cookie-banner' %}
   </body>
 </html>

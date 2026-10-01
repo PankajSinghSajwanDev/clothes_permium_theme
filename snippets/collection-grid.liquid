@@ -1,0 +1,100 @@
+{% doc %}
+  Renders a curated grid of collection tiles with atmospheric photography and titles.
+
+  @param {string} [title] - Grid title
+  @param {string} [kicker] - Sub-heading kicker text
+  @param {collection} [collection_1] - First collection
+  @param {collection} [collection_2] - Second collection
+  @param {collection} [collection_3] - Third collection
+{% enddoc %}
+
+{%- liquid
+  assign grid_title = title | default: 'sections.curated_editions' | t
+  assign grid_kicker = kicker | default: 'Curated Editions'
+  assign col_1 = collection_1 | default: collections[0]
+  assign col_2 = collection_2 | default: collections[1]
+  assign col_3 = collection_3 | default: collections[2]
+-%}
+
+<div class="collection-grid-section">
+  <div class="collection-grid__header">
+    {%- if grid_kicker != blank -%}
+      <span class="collection-grid__kicker">{{ grid_kicker }}</span>
+    {%- endif -%}
+    <h2 class="collection-grid__title">{{ grid_title }}</h2>
+  </div>
+
+  <div class="collection-grid__items">
+    {%- # Tile 1 -%}
+    <a href="{{ col_1.url | default: routes.all_products_collection_url }}" class="collection-tile">
+      <div class="collection-tile__media">
+        {%- if col_1.featured_image != blank -%}
+          {{ col_1.featured_image | image_url: width: 1000 | image_tag:
+            class: 'collection-tile__image',
+            widths: '400, 700, 1000',
+            sizes: '(min-width: 990px) 33vw, 100vw',
+            loading: 'lazy',
+            alt: col_1.title | escape
+          }}
+        {%- else -%}
+          <div class="collection-tile__placeholder">
+            {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg' }}
+          </div>
+        {%- endif -%}
+        <div class="collection-tile__overlay"></div>
+      </div>
+      <div class="collection-tile__content">
+        <h3 class="collection-tile__name">{{ col_1.title | default: 'Tailoring & Coats' }}</h3>
+        <span class="collection-tile__link-text">{{ 'sections.discover' | t }}</span>
+      </div>
+    </a>
+
+    {%- # Tile 2 -%}
+    <a href="{{ col_2.url | default: routes.all_products_collection_url }}" class="collection-tile">
+      <div class="collection-tile__media">
+        {%- if col_2.featured_image != blank -%}
+          {{ col_2.featured_image | image_url: width: 1000 | image_tag:
+            class: 'collection-tile__image',
+            widths: '400, 700, 1000',
+            sizes: '(min-width: 990px) 33vw, 100vw',
+            loading: 'lazy',
+            alt: col_2.title | escape
+          }}
+        {%- else -%}
+          <div class="collection-tile__placeholder">
+            {{ 'collection-2' | placeholder_svg_tag: 'placeholder-svg' }}
+          </div>
+        {%- endif -%}
+        <div class="collection-tile__overlay"></div>
+      </div>
+      <div class="collection-tile__content">
+        <h3 class="collection-tile__name">{{ col_2.title | default: 'Cashmere Knitwear' }}</h3>
+        <span class="collection-tile__link-text">{{ 'sections.discover' | t }}</span>
+      </div>
+    </a>
+
+    {%- # Tile 3 -%}
+    <a href="{{ col_3.url | default: routes.all_products_collection_url }}" class="collection-tile">
+      <div class="collection-tile__media">
+        {%- if col_3.featured_image != blank -%}
+          {{ col_3.featured_image | image_url: width: 1000 | image_tag:
+            class: 'collection-tile__image',
+            widths: '400, 700, 1000',
+            sizes: '(min-width: 990px) 33vw, 100vw',
+            loading: 'lazy',
+            alt: col_3.title | escape
+          }}
+        {%- else -%}
+          <div class="collection-tile__placeholder">
+            {{ 'collection-3' | placeholder_svg_tag: 'placeholder-svg' }}
+          </div>
+        {%- endif -%}
+        <div class="collection-tile__overlay"></div>
+      </div>
+      <div class="collection-tile__content">
+        <h3 class="collection-tile__name">{{ col_3.title | default: 'Leather & Accessories' }}</h3>
+        <span class="collection-tile__link-text">{{ 'sections.discover' | t }}</span>
+      </div>
+    </a>
+  </div>
+</div>

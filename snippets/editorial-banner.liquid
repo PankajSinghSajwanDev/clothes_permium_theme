@@ -1,0 +1,65 @@
+{% doc %}
+  Renders a full-width or inset editorial lookbook banner with atmospheric imagery,
+  kicker, heading, narrative paragraph, and call-to-action link.
+  @param {image} [image] - Atmospheric banner imagery
+  @param {string} [kicker] - Pre-heading text
+  @param {string} [heading] - Main headline
+  @param {string} [text] - Body description
+  @param {string} [button_label] - CTA button label
+  @param {string} [button_link] - CTA button link
+  @param {string} [text_alignment] - Text alignment ('left', 'center', 'right')
+{% enddoc %}
+
+{%- liquid
+  assign banner_kicker = kicker | default: 'Atelier Lookbook — Vol. 04'
+  assign banner_heading = heading | default: 'The Form of Quietude'
+  assign banner_text = text | default: 'Captured in the raw coastal light of Normandy. Monochromatic tailoring, double-faced cashmere overcoats, and Japanese raw denim rendered in sculptural simplicity.'
+  assign banner_button_label = button_label | default: 'Discover the Lookbook'
+  assign banner_button_link = button_link | default: routes.all_products_collection_url
+  assign banner_alignment = text_alignment | default: 'left'
+-%}
+
+<div class="editorial-banner full-width">
+  <div class="editorial-banner__media">
+    {%- if image != blank -%}
+      {{ image | image_url: width: 2000 | image_tag:
+        class: 'editorial-banner__img',
+        widths: '750, 1100, 1500, 2000',
+        sizes: '100vw',
+        loading: 'lazy',
+        alt: banner_heading | default: shop.name | escape
+      }}
+    {%- else -%}
+      <div class="editorial-banner__placeholder">
+        {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+      </div>
+    {%- endif -%}
+
+    <div class="editorial-banner__overlay"></div>
+  </div>
+
+  <div class="editorial-banner__container">
+    <div class="editorial-banner__content editorial-banner__content--{{ banner_alignment }}">
+      {%- if banner_kicker != blank -%}
+        <span class="editorial-banner__kicker">{{ banner_kicker }}</span>
+      {%- endif -%}
+
+      {%- if banner_heading != blank -%}
+        <h2 class="editorial-banner__heading">{{ banner_heading }}</h2>
+      {%- endif -%}
+
+      {%- if banner_text != blank -%}
+        <p class="editorial-banner__text">{{ banner_text }}</p>
+      {%- endif -%}
+
+      {%- if banner_button_label != blank -%}
+        <a
+          href="{{ banner_button_link }}"
+          class="button button--editorial"
+        >
+          {{ banner_button_label }}
+        </a>
+      {%- endif -%}
+    </div>
+  </div>
+</div>

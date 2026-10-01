@@ -1,19 +1,29 @@
 {% doc %}
   Renders an editorial newsletter subscription section with customer tags and status messages.
+
+  @param {string} [kicker] - Sub-heading kicker text
+  @param {string} [heading] - Newsletter section heading
+  @param {string} [subheading] - Newsletter section subheading
 {% enddoc %}
 
-<div class="newsletter-section" {{ block.shopify_attributes }}>
+{%- liquid
+  assign nl_kicker = kicker | default: 'Join the Circle'
+  assign nl_heading = heading | default: 'sections.newsletter_title' | t
+  assign nl_subheading = subheading | default: 'sections.newsletter_subtitle' | t
+-%}
+
+<div class="newsletter-section">
   <div class="newsletter-section__inner">
-    {%- if block.settings.kicker != blank -%}
-      <span class="newsletter-section__kicker">{{ block.settings.kicker }}</span>
+    {%- if nl_kicker != blank -%}
+      <span class="newsletter-section__kicker">{{ nl_kicker }}</span>
     {%- endif -%}
 
     <h2 class="newsletter-section__heading">
-      {{ block.settings.heading | default: 'sections.newsletter_title' | t }}
+      {{ nl_heading }}
     </h2>
 
     <p class="newsletter-section__subheading">
-      {{ block.settings.subheading | default: 'sections.newsletter_subtitle' | t }}
+      {{ nl_subheading }}
     </p>
 
     {%- form 'customer', id: 'HomeNewsletterForm', class: 'newsletter-section__form' -%}
@@ -58,29 +68,3 @@
     {%- endform -%}
   </div>
 </div>
-
-{% schema %}
-{
-  "name": "t:general.newsletter",
-  "settings": [
-    {
-      "type": "text",
-      "id": "kicker",
-      "label": "t:labels.kicker",
-      "default": "Join the Circle"
-    },
-    {
-      "type": "text",
-      "id": "heading",
-      "label": "t:labels.heading",
-      "default": "Private Invitations & Release Access"
-    },
-    {
-      "type": "textarea",
-      "id": "subheading",
-      "label": "t:labels.subheading",
-      "default": "Subscribers receive inaugural capsule preview access, private salon appointments, and editorial monographs."
-    }
-  ]
-}
-{% endschema %}

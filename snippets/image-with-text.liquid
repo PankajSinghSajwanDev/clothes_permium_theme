@@ -1,0 +1,66 @@
+{% doc %}
+  Renders a luxury side-by-side image and narrative text block with reversible layout.
+  @param {string} [layout] - Layout ordering ('image_first' or 'text_first')
+  @param {image} [image] - Editorial imagery
+  @param {string} [kicker] - Craftsmanship tag
+  @param {string} [heading] - Textile headline
+  @param {string} [text] - Body description
+  @param {string} [button_label] - Action button text
+  @param {string} [button_link] - Action button URL
+{% enddoc %}
+
+{%- liquid
+  assign layout_order = layout | default: 'image_first'
+  assign iwt_kicker = kicker | default: 'Textile Provenance'
+  assign iwt_heading = heading | default: 'Italian Double-Faced Cashmere'
+  assign iwt_text = text | default: 'Spun in Biella, Italy from exceptionally fine fibers. Each piece is unlined to reveal the mastery of split-seam hand-finishing, providing featherweight warmth without stiffness.'
+  assign iwt_button_label = button_label | default: 'Explore Outerwear'
+  assign iwt_button_link = button_link | default: routes.all_products_collection_url
+-%}
+
+<div class="image-with-text image-with-text--{{ layout_order }}">
+  <div class="image-with-text__inner">
+    <div class="image-with-text__media">
+      {%- if image != blank -%}
+        {{ image | image_url: width: 1400 | image_tag:
+          class: 'image-with-text__img',
+          widths: '600, 900, 1200, 1400',
+          sizes: '(min-width: 990px) 50vw, 100vw',
+          loading: 'lazy',
+          alt: iwt_heading | default: shop.name | escape
+        }}
+      {%- else -%}
+        <div class="image-with-text__placeholder">
+          {{ 'lifestyle-2' | placeholder_svg_tag: 'placeholder-svg' }}
+        </div>
+      {%- endif -%}
+    </div>
+
+    <div class="image-with-text__content">
+      {%- if iwt_kicker != blank -%}
+        <span class="image-with-text__kicker">{{ iwt_kicker }}</span>
+      {%- endif -%}
+
+      {%- if iwt_heading != blank -%}
+        <h2 class="image-with-text__heading">{{ iwt_heading }}</h2>
+      {%- endif -%}
+
+      {%- if iwt_text != blank -%}
+        <div class="image-with-text__text">
+          <p>{{ iwt_text }}</p>
+        </div>
+      {%- endif -%}
+
+      {%- if iwt_button_label != blank -%}
+        <div class="image-with-text__cta">
+          <a
+            href="{{ iwt_button_link }}"
+            class="button button--secondary"
+          >
+            {{ iwt_button_label }}
+          </a>
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
