@@ -1,0 +1,71 @@
+{% doc %}
+  Renders an SVG icon.
+
+  @param {string} name - Name of the icon (search, account, cart, menu, close, chevron-down, chevron-right, chevron-left, arrow-right, check)
+  @param {string} [class] - Optional CSS classes to apply to the svg
+{% enddoc %}
+
+{%- case name -%}
+  {%- when 'search' -%}
+    <svg class="icon icon-search {{ class }}" aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="square" stroke-linejoin="miter">
+      <circle cx="10.5" cy="10.5" r="7.5"></circle>
+      <line x1="16" y1="16" x2="22" y2="22"></line>
+    </svg>
+
+  {%- when 'account' -%}
+    <svg class="icon icon-account {{ class }}" aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="square" stroke-linejoin="miter">
+      <circle cx="12" cy="7.5" r="4.5"></circle>
+      <path d="M4 21c0-4.418 3.582-8 8-8s8 3.582 8 8"></path>
+    </svg>
+
+  {%- when 'cart' -%}
+    <svg class="icon icon-cart {{ class }}" aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="square" stroke-linejoin="miter">
+      <path d="M4 7h16l-1.5 13H5.5L4 7z"></path>
+      <path d="M8 7V5a4 4 0 018 0v2"></path>
+    </svg>
+
+  {%- when 'menu' -%}
+    <svg class="icon icon-menu {{ class }}" aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="square" stroke-linejoin="miter">
+      <line x1="3" y1="7" x2="21" y2="7"></line>
+      <line x1="3" y1="17" x2="21" y2="17"></line>
+    </svg>
+
+  {%- when 'close' -%}
+    <svg class="icon icon-close {{ class }}" aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="square" stroke-linejoin="miter">
+      <line x1="18" y1="6" x2="6" y2="18"></line>
+      <line x1="6" y1="6" x2="18" y2="18"></line>
+    </svg>
+
+  {%- when 'chevron-down' -%}
+    <svg class="icon icon-chevron-down {{ class }}" aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="square" stroke-linejoin="miter">
+      <polyline points="6 9 12 15 18 9"></polyline>
+    </svg>
+
+  {%- when 'chevron-right' -%}
+    <svg class="icon icon-chevron-right {{ class }}" aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="square" stroke-linejoin="miter">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+
+  {%- when 'chevron-left' -%}
+    <svg class="icon icon-chevron-left {{ class }}" aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="square" stroke-linejoin="miter">
+      <polyline points="15 18 9 12 15 6"></polyline>
+    </svg>
+
+  {%- when 'arrow-right' -%}
+    <svg class="icon icon-arrow-right {{ class }}" aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="square" stroke-linejoin="miter">
+      <line x1="4" y1="12" x2="20" y2="12"></line>
+      <polyline points="14 6 20 12 14 18"></polyline>
+    </svg>
+
+  {%- when 'check' -%}
+    <svg class="icon icon-check {{ class }}" aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter">
+      <polyline points="20 6 9 17 4 12"></polyline>
+    </svg>
+
+  {%- when 'globe' -%}
+    <svg class="icon icon-globe {{ class }}" aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="square" stroke-linejoin="miter">
+      <circle cx="12" cy="12" r="10"></circle>
+      <line x1="2" y1="12" x2="22" y2="12"></line>
+      <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+    </svg>
+{%- endcase -%}

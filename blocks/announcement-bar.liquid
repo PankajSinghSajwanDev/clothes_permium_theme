@@ -1,0 +1,56 @@
+{% doc %}
+  Renders the storefront announcement bar with optional multiple messages and dismissal support.
+  Composed directly in layout/theme.liquid or templates.
+{% enddoc %}
+
+{%- if settings.announcement_enabled -%}
+  <announcement-bar
+    class="announcement-bar"
+    style="--announcement-bg: {{ settings.announcement_bg }}; --announcement-text: {{ settings.announcement_text_color }};"
+    {{ block.shopify_attributes }}
+  >
+    <div class="announcement-bar__inner">
+      <div class="announcement-bar__messages" role="region" aria-label="{{ 'announcement.title' | t }}">
+        {%- if settings.announcement_text_1 != blank -%}
+          <div class="announcement-bar__message active" data-index="1">
+            {%- if settings.announcement_link_1 != blank -%}
+              <a href="{{ settings.announcement_link_1 }}" class="announcement-bar__link">
+                {{ settings.announcement_text_1 }}
+              </a>
+            {%- else -%}
+              <span class="announcement-bar__text">{{ settings.announcement_text_1 }}</span>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+
+        {%- if settings.announcement_text_2 != blank -%}
+          <div class="announcement-bar__message" data-index="2" hidden>
+            {%- if settings.announcement_link_2 != blank -%}
+              <a href="{{ settings.announcement_link_2 }}" class="announcement-bar__link">
+                {{ settings.announcement_text_2 }}
+              </a>
+            {%- else -%}
+              <span class="announcement-bar__text">{{ settings.announcement_text_2 }}</span>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+      </div>
+
+      <button
+        type="button"
+        class="announcement-bar__close"
+        aria-label="{{ 'announcement.close_announcement' | t }}"
+        data-action="close"
+      >
+        {% render 'icon', name: 'close' %}
+      </button>
+    </div>
+  </announcement-bar>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "t:general.announcement_bar",
+  "settings": []
+}
+{% endschema %}

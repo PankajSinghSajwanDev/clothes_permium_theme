@@ -1,0 +1,52 @@
+{% doc %}
+  Renders a privacy and cookie consent banner integrated with Shopify's Customer Privacy API.
+{% enddoc %}
+
+{%- if settings.enable_cookie_banner -%}
+  <cookie-banner
+    id="CookieBanner"
+    class="cookie-banner"
+    role="region"
+    aria-label="{{ 'cookie.banner_title' | t }}"
+    hidden
+    {{ block.shopify_attributes }}
+  >
+    <div class="cookie-banner__inner">
+      <div class="cookie-banner__content">
+        <h3 class="cookie-banner__title">{{ 'cookie.banner_title' | t }}</h3>
+        <p class="cookie-banner__text">
+          {{ 'cookie.banner_text' | t }}
+          {%- if shop.privacy_policy -%}
+            <a href="{{ shop.privacy_policy.url }}" class="cookie-banner__link">
+              {{ 'cookie.privacy_policy' | t }}
+            </a>
+          {%- endif -%}
+        </p>
+      </div>
+
+      <div class="cookie-banner__actions">
+        <button
+          type="button"
+          class="cookie-banner__btn cookie-banner__btn--decline"
+          data-action="decline"
+        >
+          {{ 'cookie.decline' | t }}
+        </button>
+        <button
+          type="button"
+          class="cookie-banner__btn cookie-banner__btn--accept"
+          data-action="accept"
+        >
+          {{ 'cookie.accept' | t }}
+        </button>
+      </div>
+    </div>
+  </cookie-banner>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "t:general.cookie_banner",
+  "settings": []
+}
+{% endschema %}

@@ -1,0 +1,56 @@
+/* Accessibility & Focus Utilities */
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+.visually-hidden.focusable:focus,
+.visually-hidden.focusable:focus-visible {
+  position: fixed !important;
+  top: 1rem;
+  left: 1rem;
+  z-index: 10000;
+  width: auto !important;
+  height: auto !important;
+  padding: 0.75rem 1.5rem !important;
+  margin: 0 !important;
+  clip: auto !important;
+  white-space: normal !important;
+  background-color: var(--color-foreground, #0A0A0A);
+  color: var(--color-background, #FFFFFF);
+  font-family: var(--font-ui--family);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+  outline: 2px solid var(--color-accent, #C8A97E);
+  outline-offset: 2px;
+}
+
+/* Global Focus Styles - WCAG 2.2 AA compliant */
+:focus-visible {
+  outline: 2px solid var(--color-foreground, #0A0A0A);
+  outline-offset: 2px;
+}
+
+/* Reduced Motion Override */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

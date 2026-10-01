@@ -1,0 +1,233 @@
+{
+  "accessibility": {
+    "skip_to_text": "Skip to content",
+    "close": "Close",
+    "menu": "Menu",
+    "search": "Search",
+    "cart": "Cart",
+    "account": "Account",
+    "next": "Next",
+    "previous": "Previous",
+    "open_menu": "Open menu",
+    "close_menu": "Close menu",
+    "filter": "Filter",
+    "sort_by": "Sort by",
+    "back": "Back",
+    "loading": "Loading...",
+    "error": "Error",
+    "scroll_to_top": "Scroll to top"
+  },
+  "hello_world": {
+    "title": "Hello, World!",
+    "intro": "The Skeleton theme is a minimal, carefully structured Shopify theme designed to help you quickly get started.",
+    "description": "Themes shape the online store experience for merchants and their customers.",
+    "key_concepts_title": "Key Concepts",
+    "key_concepts_body": "Shopify themes are a package of template files, building blocks, and supporting assets.",
+    "key_concepts_link": "Learn more about key concepts",
+    "liquid_title": "Liquid",
+    "liquid_body": "The Liquid templating language is the backbone of Shopify themes.",
+    "liquid_link": "View the Liquid reference",
+    "best_practices_title": "Best Practices",
+    "best_practices_body": "To optimize your theme development experience, Shopify has established a set of best practices.",
+    "best_practices_link": "Follow best practices",
+    "liquid_tips_title": "Liquid tips",
+    "liquid_tips_refresh": "Show another tip",
+    "liquid_tips_1": "Prefer whitespace control with {%- -%} to keep rendered markup clean",
+    "liquid_tips_2": "Reach for the render tag instead of include so each snippet gets its own scope",
+    "liquid_tips_3": "Assign expensive lookups to a variable once and reuse it across the template"
+  },
+  "announcement": {
+    "title": "Announcement",
+    "close_announcement": "Dismiss announcement"
+  },
+  "header": {
+    "navigation": "Main navigation",
+    "menu": "Menu",
+    "close_menu": "Close menu",
+    "account": "Account",
+    "cart": "Cart",
+    "cart_count": "Cart with {{ count }} items",
+    "search": "Search",
+    "back": "Back"
+  },
+  "footer": {
+    "newsletter_heading": "Newsletter",
+    "newsletter_subtext": "Subscribe to receive curated releases, private invitations, and editorial stories.",
+    "email_placeholder": "Enter your email address",
+    "subscribe": "Subscribe",
+    "success_message": "Thank you for subscribing.",
+    "error_message": "Please enter a valid email address.",
+    "copyright": "All rights reserved.",
+    "country_region": "Country / Region",
+    "language": "Language",
+    "currency": "Currency",
+    "social_links": "Social media"
+  },
+  "cookie": {
+    "banner_title": "Cookie Preferences",
+    "banner_text": "We use cookies to enhance your browsing experience, deliver tailored content, and analyze site traffic.",
+    "accept": "Accept All",
+    "decline": "Decline Non-Essential",
+    "privacy_policy": "Privacy Policy"
+  },
+  "404": {
+    "title": "404",
+    "subheading": "Page Not Found",
+    "not_found": "The page you are looking for does not exist or has been moved.",
+    "back_to_shopping": "Return to Collection"
+  },
+  "blog": {
+    "article_comments": "Comments",
+    "article_metadata_html": "{{ date }} by {{ author }}",
+    "comment_form_body": "Comment",
+    "comment_form_email": "Email",
+    "comment_form_name": "Name",
+    "comment_form_submit": "Post",
+    "comment_form_title": "Add a comment",
+    "read_more": "Read article",
+    "back_to_blog": "Back to journal"
+  },
+  "cart": {
+    "checkout": "Proceed to Checkout",
+    "title": "Shopping Bag",
+    "empty": "Your bag is currently empty.",
+    "continue_shopping": "Explore the Collection",
+    "update": "Update",
+    "remove": "Remove",
+    "quantity": "Quantity",
+    "subtotal": "Subtotal",
+    "taxes_and_shipping_at_checkout": "Taxes and shipping calculated at checkout",
+    "note": "Add order instructions",
+    "note_placeholder": "Special instructions regarding delivery...",
+    "free_shipping_remaining_html": "Add {{ amount }} more for complimentary shipping",
+    "free_shipping_unlocked": "You have unlocked complimentary express shipping"
+  },
+  "customers": {
+    "login": {
+      "email": "Email Address",
+      "password": "Password",
+      "submit": "Sign In",
+      "title": "Account Login",
+      "forgot_password": "Forgot password?",
+      "create_account": "Create Account"
+    },
+    "register": {
+      "title": "Create Account",
+      "first_name": "First Name",
+      "last_name": "Last Name",
+      "email": "Email Address",
+      "password": "Password",
+      "submit": "Create Account"
+    },
+    "account": {
+      "title": "My Account",
+      "details": "Account Details",
+      "orders": "Order History",
+      "no_orders": "You haven't placed any orders yet.",
+      "view_addresses": "View Addresses ({{ count }})",
+      "return_to_account": "Return to Account Details",
+      "log_out": "Log Out"
+    },
+    "order": {
+      "title": "Order {{ name }}",
+      "date_html": "Placed on {{ date }}",
+      "cancelled_html": "Order Cancelled on {{ date }}",
+      "subtotal": "Subtotal",
+      "shipping": "Shipping",
+      "tax": "Tax",
+      "total": "Total",
+      "fulfillment_status": "Fulfillment Status",
+      "payment_status": "Payment Status"
+    },
+    "addresses": {
+      "title": "Your Addresses",
+      "add_new": "Add a New Address",
+      "edit": "Edit",
+      "delete": "Delete",
+      "set_default": "Set as default address",
+      "cancel": "Cancel",
+      "add": "Add Address",
+      "update": "Update Address"
+    },
+    "reset_password": {
+      "title": "Reset Password",
+      "subtext": "Enter a new password for {{ email }}",
+      "password": "New Password",
+      "password_confirm": "Confirm Password",
+      "submit": "Reset Password"
+    }
+  },
+  "collections": {
+    "title": "Collections",
+    "all_products": "All Products",
+    "empty": "No products found in this collection.",
+    "filter_and_sort": "Filter & Sort",
+    "filters": "Filters",
+    "apply_filters": "Apply",
+    "clear_all": "Clear all",
+    "active_filters": "Active filters",
+    "product_count": {
+      "one": "{{ count }} item",
+      "other": "{{ count }} items"
+    },
+    "sort_by": "Sort by",
+    "sort_button": "Sort",
+    "from": "From"
+  },
+  "products": {
+    "add_to_cart": "Add to Bag",
+    "sold_out": "Sold Out",
+    "unavailable": "Unavailable",
+    "preorder": "Pre-Order",
+    "quantity": "Quantity",
+    "size_guide": "Size Guide",
+    "size": "Size",
+    "color": "Color",
+    "notify_me": "Notify me when available",
+    "notify_email_placeholder": "Enter your email",
+    "notify_submit": "Notify Me",
+    "notify_success": "We'll notify you when this item is restocked.",
+    "new_badge": "New",
+    "sale_badge": "Sale",
+    "low_stock_badge": "Low Stock",
+    "view_product": "View details",
+    "details": "Details & Fit",
+    "materials": "Materials & Care",
+    "shipping": "Shipping & Returns"
+  },
+  "gift_card": {
+    "add_to_apple_wallet": "Add to Apple Wallet",
+    "card": "Gift Card",
+    "expired": "This gift card has expired",
+    "expires_on": "Expires on {{ expires_on }}",
+    "use_at_checkout": "Use this gift card at checkout",
+    "copy_code": "Copy Code",
+    "code_copied": "Code copied to clipboard"
+  },
+  "password": {
+    "title": "Maison Studio",
+    "subheading": "Private Preview",
+    "password": "Enter Access Code",
+    "enter": "Enter"
+  },
+  "search": {
+    "title": "Search",
+    "placeholder": "Search garments, collections, or editorials...",
+    "submit": "Search",
+    "no_results_html": "No results found for \"{{ terms }}\"",
+    "results_for_html": "{{ count }} results for \"{{ terms }}\"",
+    "view_all_results": "View all results",
+    "recommended_searches": "Suggested Searches",
+    "products": "Products",
+    "articles": "Journal",
+    "pages": "Pages",
+    "collections": "Collections"
+  },
+  "newsletter_popup": {
+    "title": "Maison Privilege",
+    "subtext": "Receive 10% off your inaugural order and private access to new releases.",
+    "placeholder": "Enter your email",
+    "submit": "Join the Circle",
+    "dismiss": "No, thank you"
+  }
+}

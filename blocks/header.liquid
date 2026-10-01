@@ -1,0 +1,311 @@
+{% doc %}
+  Renders the storefront header: centered wordmark, left primary navigation with
+  3-level mega menu, right utilities (search, account, cart), and accessible mobile drawer.
+{% enddoc %}
+
+<site-header
+  class="site-header"
+  data-sticky="{{ settings.enable_sticky_header }}"
+  data-hide-on-scroll="{{ settings.hide_header_on_scroll }}"
+  {{ block.shopify_attributes }}
+>
+  <div class="header__inner">
+    {%- # Left Section: Mobile Toggle & Desktop Nav -%}
+    <div class="header__left">
+      <button
+        type="button"
+        class="header__menu-toggle mobile-only"
+        aria-label="{{ 'accessibility.open_menu' | t }}"
+        aria-expanded="false"
+        aria-controls="MobileNavDrawer"
+        data-action="open-mobile-nav"
+      >
+        {% render 'icon', name: 'menu' %}
+      </button>
+
+      <nav class="header__nav desktop-only" aria-label="{{ 'header.navigation' | t }}">
+        <ul class="header__nav-list" role="list">
+          {%- for link in block.settings.menu.links -%}
+            {%- assign has_dropdown = false -%}
+            {%- if link.links != blank -%}
+              {%- assign has_dropdown = true -%}
+            {%- endif -%}
+
+            <li class="header__nav-item{% if has_dropdown %} has-dropdown{% endif %}">
+              <a
+                href="{{ link.url }}"
+                class="header__nav-link{% if link.current %} active{% endif %}"
+                {% if has_dropdown %}
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                {% endif %}
+              >
+                {{ link.title }}
+                {% if has_dropdown %}
+                  {% render 'icon', name: 'chevron-down', class: 'header__nav-arrow' %}
+                {% endif %}
+              </a>
+
+              {%- if has_dropdown -%}
+                <div class="mega-menu" role="region" aria-label="{{ link.title }}">
+                  <div class="mega-menu__container">
+                    <div class="mega-menu__grid">
+                      {%- for child_link in link.links -%}
+                        <div class="mega-menu__column">
+                          <a href="{{ child_link.url }}" class="mega-menu__title">
+                            {{ child_link.title }}
+                          </a>
+
+                          {%- if child_link.links != blank -%}
+                            <ul class="mega-menu__sublist" role="list">
+                              {%- for grandchild_link in child_link.links -%}
+                                <li>
+                                  <a href="{{ grandchild_link.url }}" class="mega-menu__sublink">
+                                    {{ grandchild_link.title }}
+                                  </a>
+                                </li>
+                              {%- endfor -%}
+                            </ul>
+                          {%- endif -%}
+                        </div>
+                      {%- endfor -%}
+                    </div>
+                  </div>
+                </div>
+              {%- endif -%}
+            </li>
+          {%- endfor -%}
+        </ul>
+      </nav>
+    </div>
+
+    {%- # Center Section: Logo Wordmark -%}
+    <div class="header__center">
+      <h1 class="header__logo-wrapper">
+        <a href="{{ routes.root_url }}" class="header__logo-link">
+          {%- if settings.logo_image != blank -%}
+            {{ settings.logo_image | image_url: width: 300 | image_tag:
+              class: 'header__logo-img',
+              alt: shop.name,
+              preload: true
+            }}
+          {%- else -%}
+            <span class="header__logo-text">{{ shop.name }}</span>
+          {%- endif -%}
+        </a>
+      </h1>
+    </div>
+
+    {%- # Right Section: Search, Account, Cart -%}
+    <div class="header__right">
+      <button
+        type="button"
+        class="header__action-btn"
+        aria-label="{{ 'header.search' | t }}"
+        aria-controls="SearchOverlay"
+        data-action="open-search"
+      >
+        {% render 'icon', name: 'search' %}
+      </button>
+
+      {%- if shop.customer_accounts_enabled -%}
+        <a
+          href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}"
+          class="header__action-btn desktop-only"
+          aria-label="{{ 'header.account' | t }}"
+        >
+          {% render 'icon', name: 'account' %}
+        </a>
+      {%- endif -%}
+
+      <a
+        href="{{ routes.cart_url }}"
+        class="header__action-btn header__cart-btn"
+        aria-label="{{ 'header.cart' | t }}"
+        data-action="open-cart"
+      >
+        {% render 'icon', name: 'cart' %}
+        <span
+          class="header__cart-count"
+          data-cart-count="{{ cart.item_count }}"
+          {% if cart.item_count == 0 %}hidden{% endif %}
+        >
+          {{ cart.item_count }}
+        </span>
+      </a>
+    </div>
+  </div>
+
+  {%- # Mobile Navigation Drawer -%}
+  <div
+    id="MobileNavDrawer"
+    class="mobile-nav"
+    role="dialog"
+    aria-modal="true"
+    aria-label="{{ 'header.menu' | t }}"
+    hidden
+  >
+    <div class="mobile-nav__overlay" data-action="close-mobile-nav"></div>
+    <div class="mobile-nav__panel">
+      <div class="mobile-nav__header">
+        <span class="mobile-nav__title">{{ 'header.menu' | t }}</span>
+        <button
+          type="button"
+          class="mobile-nav__close"
+          aria-label="{{ 'accessibility.close_menu' | t }}"
+          data-action="close-mobile-nav"
+        >
+          {% render 'icon', name: 'close' %}
+        </button>
+      </div>
+
+      <div class="mobile-nav__content">
+        {%- # Main Level -%}
+        <div class="mobile-nav__view active" data-view="root">
+          <ul class="mobile-nav__list" role="list">
+            {%- for link in block.settings.menu.links -%}
+              <li class="mobile-nav__item">
+                {%- if link.links != blank -%}
+                  <button
+                    type="button"
+                    class="mobile-nav__trigger"
+                    data-target="view-{{ forloop.index }}"
+                    aria-expanded="false"
+                  >
+                    <span>{{ link.title }}</span>
+                    {% render 'icon', name: 'chevron-right' %}
+                  </button>
+                {%- else -%}
+                  <a href="{{ link.url }}" class="mobile-nav__link">
+                    {{ link.title }}
+                  </a>
+                {%- endif -%}
+              </li>
+            {%- endfor -%}
+          </ul>
+
+          <div class="mobile-nav__footer">
+            {%- if shop.customer_accounts_enabled -%}
+              <a
+                href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{% endif %}"
+                class="mobile-nav__account-link"
+              >
+                {% render 'icon', name: 'account' %}
+                <span>
+                  {%- if customer -%}
+                    {{ 'customers.account.title' | t }}
+                  {%- else -%}
+                    {{ 'customers.login.title' | t }}
+                  {%- endif -%}
+                </span>
+              </a>
+            {%- endif -%}
+
+            {% render 'localization-form' %}
+          </div>
+        </div>
+
+        {%- # Sub-Levels (Drill-down) -%}
+        {%- for link in block.settings.menu.links -%}
+          {%- if link.links != blank -%}
+            {%- assign parent_index = forloop.index -%}
+            <div class="mobile-nav__view" data-view="view-{{ parent_index }}" hidden>
+              <button
+                type="button"
+                class="mobile-nav__back"
+                data-back="root"
+                aria-label="{{ 'header.back' | t }}"
+              >
+                {% render 'icon', name: 'chevron-left' %}
+                <span>{{ link.title }}</span>
+              </button>
+
+              <ul class="mobile-nav__list" role="list">
+                <li class="mobile-nav__item">
+                  <a href="{{ link.url }}" class="mobile-nav__link mobile-nav__link--view-all">
+                    {{ 'collections.all_products' | t }} ({{ link.title }})
+                  </a>
+                </li>
+                {%- for child_link in link.links -%}
+                  <li class="mobile-nav__item">
+                    {%- if child_link.links != blank -%}
+                      <button
+                        type="button"
+                        class="mobile-nav__trigger"
+                        data-target="view-{{ parent_index }}-{{ forloop.index }}"
+                        aria-expanded="false"
+                      >
+                        <span>{{ child_link.title }}</span>
+                        {% render 'icon', name: 'chevron-right' %}
+                      </button>
+                    {%- else -%}
+                      <a href="{{ child_link.url }}" class="mobile-nav__link">
+                        {{ child_link.title }}
+                      </a>
+                    {%- endif -%}
+                  </li>
+                {%- endfor -%}
+              </ul>
+            </div>
+
+            {%- # Level 3 -%}
+            {%- for child_link in link.links -%}
+              {%- if child_link.links != blank -%}
+                <div
+                  class="mobile-nav__view"
+                  data-view="view-{{ parent_index }}-{{ forloop.index }}"
+                  hidden
+                >
+                  <button
+                    type="button"
+                    class="mobile-nav__back"
+                    data-back="view-{{ parent_index }}"
+                    aria-label="{{ 'header.back' | t }}"
+                  >
+                    {% render 'icon', name: 'chevron-left' %}
+                    <span>{{ child_link.title }}</span>
+                  </button>
+
+                  <ul class="mobile-nav__list" role="list">
+                    <li class="mobile-nav__item">
+                      <a href="{{ child_link.url }}" class="mobile-nav__link mobile-nav__link--view-all">
+                        {{ 'collections.all_products' | t }} ({{ child_link.title }})
+                      </a>
+                    </li>
+                    {%- for grandchild_link in child_link.links -%}
+                      <li class="mobile-nav__item">
+                        <a href="{{ grandchild_link.url }}" class="mobile-nav__link">
+                          {{ grandchild_link.title }}
+                        </a>
+                      </li>
+                    {%- endfor -%}
+                  </ul>
+                </div>
+              {%- endif -%}
+            {%- endfor -%}
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</site-header>
+
+{% schema %}
+{
+  "name": "t:general.header",
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "t:labels.menu",
+      "default": "main-menu"
+    },
+    {
+      "type": "link_list",
+      "id": "customer_account_menu",
+      "label": "t:labels.customer_account_menu",
+      "default": "customer-account-main-menu"
+    }
+  ]
+}
+{% endschema %}

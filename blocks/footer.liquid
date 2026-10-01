@@ -1,0 +1,217 @@
+{% doc %}
+  Renders the storefront luxury editorial footer: brand overview, multi-column
+  navigation menus (accordions on mobile), newsletter form, social links,
+  region/language localization, and payment types.
+{% enddoc %}
+
+<footer class="site-footer" {{ block.shopify_attributes }}>
+  <div class="site-footer__inner">
+    <div class="site-footer__grid">
+      {%- # Column 1: Brand Atelier Information -%}
+      <div class="site-footer__col site-footer__col--brand">
+        <h2 class="site-footer__brand-title">
+          {{ settings.footer_heading | default: shop.name }}
+        </h2>
+        {%- if settings.footer_description != blank -%}
+          <p class="site-footer__brand-text">
+            {{ settings.footer_description }}
+          </p>
+        {%- endif -%}
+
+        {%- if settings.show_social_icons -%}
+          <div class="site-footer__social-wrap">
+            <span class="site-footer__label">{{ 'footer.social_links' | t }}</span>
+            <ul class="social-icons" role="list">
+              {%- if settings.social_instagram_link != blank -%}
+                <li>
+                  <a href="{{ settings.social_instagram_link }}" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                    <svg class="icon icon-social" aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="square">
+                      <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                      <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                    </svg>
+                  </a>
+                </li>
+              {%- endif -%}
+              {%- if settings.social_tiktok_link != blank -%}
+                <li>
+                  <a href="{{ settings.social_tiktok_link }}" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+                    <svg class="icon icon-social" aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="square">
+                      <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"></path>
+                    </svg>
+                  </a>
+                </li>
+              {%- endif -%}
+              {%- if settings.social_pinterest_link != blank -%}
+                <li>
+                  <a href="{{ settings.social_pinterest_link }}" target="_blank" rel="noopener noreferrer" aria-label="Pinterest">
+                    <svg class="icon icon-social" aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="square">
+                      <line x1="12" y1="9" x2="12" y2="21"></line>
+                      <path d="M8 14.5c-.8-1.5-.7-3.7.8-5 2.1-1.8 5.6-1.5 6.9.7 1.3 2.1.3 5.4-1.9 6.2-1.3.5-3-.3-3.3-1.6"></path>
+                    </svg>
+                  </a>
+                </li>
+              {%- endif -%}
+              {%- if settings.social_facebook_link != blank -%}
+                <li>
+                  <a href="{{ settings.social_facebook_link }}" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                    <svg class="icon icon-social" aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="square">
+                      <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                    </svg>
+                  </a>
+                </li>
+              {%- endif -%}
+              {%- if settings.social_twitter_link != blank -%}
+                <li>
+                  <a href="{{ settings.social_twitter_link }}" target="_blank" rel="noopener noreferrer" aria-label="X (formerly Twitter)">
+                    <svg class="icon icon-social" aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="square">
+                      <path d="M4 4l16 16m0-16L4 20"></path>
+                    </svg>
+                  </a>
+                </li>
+              {%- endif -%}
+            </ul>
+          </div>
+        {%- endif -%}
+      </div>
+
+      {%- # Column 2: Primary Navigation Menu -%}
+      <div class="site-footer__col site-footer__col--nav">
+        {%- if block.settings.menu != blank -%}
+          <details class="site-footer__accordion" open>
+            <summary class="site-footer__heading">
+              <span>{{ block.settings.menu.title | default: 'Collection' }}</span>
+              {% render 'icon', name: 'chevron-down', class: 'accordion-icon' %}
+            </summary>
+            <ul class="site-footer__list" role="list">
+              {%- for link in block.settings.menu.links -%}
+                <li>
+                  <a href="{{ link.url }}" class="site-footer__link">
+                    {{ link.title }}
+                  </a>
+                </li>
+              {%- endfor -%}
+            </ul>
+          </details>
+        {%- endif -%}
+      </div>
+
+      {%- # Column 3: Secondary / Customer Care Menu -%}
+      <div class="site-footer__col site-footer__col--nav">
+        {%- if block.settings.secondary_menu != blank -%}
+          <details class="site-footer__accordion" open>
+            <summary class="site-footer__heading">
+              <span>{{ block.settings.secondary_menu.title | default: 'Client Services' }}</span>
+              {% render 'icon', name: 'chevron-down', class: 'accordion-icon' %}
+            </summary>
+            <ul class="site-footer__list" role="list">
+              {%- for link in block.settings.secondary_menu.links -%}
+                <li>
+                  <a href="{{ link.url }}" class="site-footer__link">
+                    {{ link.title }}
+                  </a>
+                </li>
+              {%- endfor -%}
+            </ul>
+          </details>
+        {%- endif -%}
+      </div>
+
+      {%- # Column 4: Newsletter Signup Form -%}
+      {%- if settings.show_newsletter -%}
+        <div class="site-footer__col site-footer__col--newsletter">
+          <h2 class="site-footer__heading-static">
+            {{ 'footer.newsletter_heading' | t }}
+          </h2>
+          <p class="site-footer__subtext">
+            {{ 'footer.newsletter_subtext' | t }}
+          </p>
+
+          {%- form 'customer', id: 'FooterNewsletterForm', class: 'footer-newsletter-form' -%}
+            <input type="hidden" name="contact[tags]" value="newsletter,footer">
+            <div class="newsletter-field-group">
+              <label for="FooterNewsletterEmail" class="visually-hidden">
+                {{ 'footer.email_placeholder' | t }}
+              </label>
+              <input
+                id="FooterNewsletterEmail"
+                type="email"
+                name="contact[email]"
+                class="newsletter-input"
+                value="{{ form.email }}"
+                placeholder="{{ 'footer.email_placeholder' | t }}"
+                aria-required="true"
+                autocorrect="off"
+                autocapitalize="off"
+                autocomplete="email"
+                required
+              >
+              <button
+                type="submit"
+                class="newsletter-submit-btn"
+                aria-label="{{ 'footer.subscribe' | t }}"
+              >
+                {% render 'icon', name: 'arrow-right' %}
+              </button>
+            </div>
+
+            {%- if form.posted_successfully? -%}
+              <p class="form-status form-status--success" tabindex="-1" autofocus>
+                {% render 'icon', name: 'check' %}
+                {{ 'footer.success_message' | t }}
+              </p>
+            {%- elsif form.errors -%}
+              <p class="form-status form-status--error" tabindex="-1" autofocus>
+                {{ form.errors.translated_fields.email | capitalize }}
+                {{ form.errors.messages.email }}
+              </p>
+            {%- endif -%}
+          {%- endform -%}
+        </div>
+      {%- endif -%}
+    </div>
+
+    {%- # Bottom Bar: Localization, Payments, Copyright -%}
+    <div class="site-footer__bottom">
+      <div class="site-footer__bottom-left">
+        {% render 'localization-form' %}
+      </div>
+
+      <div class="site-footer__bottom-right">
+        {%- if settings.show_payment_icons -%}
+          <div class="site-footer__payments" role="list">
+            {%- for type in shop.enabled_payment_types -%}
+              <span class="payment-icon" role="listitem">
+                {{ type | payment_type_svg_tag: class: 'icon icon--payment' }}
+              </span>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+
+        <div class="site-footer__copyright">
+          <span>&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}.</span>
+          <span>{{ 'footer.copyright' | t }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "t:general.footer",
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "t:labels.menu",
+      "default": "footer"
+    },
+    {
+      "type": "link_list",
+      "id": "secondary_menu",
+      "label": "t:labels.footer_menu"
+    }
+  ]
+}
+{% endschema %}

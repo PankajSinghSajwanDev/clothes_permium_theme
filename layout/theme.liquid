@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+  <head>
+    {% # Inlined CSS Variables %}
+    {% render 'css-variables' %}
+
+    {% comment %}
+      Font preloading:
+      1. Preconnect to font CDN for faster connection
+      2. Preload critical font variant
+    {% endcomment %}
+    {% unless settings.type_primary_font.system? %}
+      <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
+      {{ settings.type_primary_font | font_url | preload_tag: as: 'font', crossorigin: 'anonymous' }}
+    {% endunless %}
+
+    {% # Load CSS Assets %}
+    {{ 'critical.css' | asset_url | stylesheet_tag: preload: true }}
+    {{ 'a11y.css' | asset_url | stylesheet_tag }}
+    {{ 'header.css' | asset_url | stylesheet_tag }}
+    {{ 'footer.css' | asset_url | stylesheet_tag }}
+    {{ 'base.css' | asset_url | stylesheet_tag }}
+
+    {% # Meta tags, title, open graph %}
+    {% render 'meta-tags' %}
+
+    {{ content_for_header }}
+
+    {% # Defer Core Scripts %}
+    <script src="{{ 'utils.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'announcement-bar.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'header.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'cookie-banner.js' | asset_url }}" defer="defer"></script>
+  </head>
+
+  <body>
+    <a href="#MainContent" class="skip-to-content visually-hidden focusable">
+      {{ 'accessibility.skip_to_text' | t }}
+    </a>
+
+    {% block 'announcement-bar' -%}{%- endblock %}
+
+    {% block 'container', tag: 'div' %}
+      {% block 'header' -%}{%- endblock %}
+    {% endblock %}
+
+    <main id="MainContent" class="main-content" role="main" tabindex="-1">
+      {{ content_for_layout }}
+    </main>
+
+    {% block 'container', tag: 'div' %}
+      {% block 'footer' -%}{%- endblock %}
+    {% endblock %}
+
+    {% block 'cookie-banner' -%}{%- endblock %}
+  </body>
+</html>

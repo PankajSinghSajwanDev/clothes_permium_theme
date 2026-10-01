@@ -1,0 +1,83 @@
+{% doc %}
+  Inlines CSS custom properties and font-face declarations derived from theme settings.
+{% enddoc %}
+
+{% style %}
+  {% # Loads font variations with display: swap %}
+  {{ settings.type_primary_font | font_face: font_display: 'swap' }}
+  {{ settings.type_primary_font | font_modify: 'weight', '500' | font_face: font_display: 'swap' }}
+  {{ settings.type_primary_font | font_modify: 'weight', 'bold' | font_face: font_display: 'swap' }}
+
+  :root {
+    /* Typography */
+    --font-primary--family: {{ settings.type_primary_font.family }}, {{ settings.type_primary_font.fallback_families }}, serif;
+    --font-primary--style: {{ settings.type_primary_font.style }};
+    --font-primary--weight: {{ settings.type_primary_font.weight }};
+    --font-ui--family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+
+    --font-label-size: 0.6875rem;
+    --font-label-tracking: 0.14em;
+    --font-body-size: 0.9375rem;
+    --font-body-line-height: 1.6;
+    --font-h1: clamp(2.25rem, 5vw, 4.5rem);
+    --font-h2: clamp(1.5rem, 3vw, 2.75rem);
+    --font-h3: clamp(1.125rem, 2vw, 1.5rem);
+    --font-h4: 1rem;
+
+    /* Colors */
+    --color-background: {{ settings.background_color | default: '#FFFFFF' }};
+    --color-foreground: {{ settings.foreground_color | default: '#0A0A0A' }};
+    --color-accent: {{ settings.accent_color | default: '#C8A97E' }};
+    --color-border: {{ settings.border_color | default: '#E8E8E8' }};
+    
+    --color-grey-100: #F7F7F7;
+    --color-grey-200: #EAEAEA;
+    --color-grey-500: #888888;
+    --color-grey-700: #333333;
+    --color-error: #B5292C;
+    --color-success: #2D6A4F;
+
+    /* Spacing Scale */
+    --sp-1: 0.25rem;
+    --sp-2: 0.5rem;
+    --sp-3: 0.75rem;
+    --sp-4: 1rem;
+    --sp-6: 1.5rem;
+    --sp-8: 2rem;
+    --sp-10: 2.5rem;
+    --sp-12: 3rem;
+    --sp-16: 4rem;
+    --sp-20: 5rem;
+    --sp-24: 6rem;
+    --sp-32: 8rem;
+    --section-padding-y: clamp(var(--sp-12), 6vw, var(--sp-24));
+
+    /* Layout */
+    --page-width: {{ settings.max_page_width | default: '110rem' }};
+    --page-margin: {{ settings.min_page_margin | default: 32 }}px;
+    --header-height: 4.5rem;
+    --header-height-mobile: 3.75rem;
+    --drawer-width: min(28rem, 100vw);
+    --grid-gap: var(--sp-4);
+    --grid-gap-desktop: var(--sp-6);
+
+    /* Borders and Sharp Aesthetic */
+    --border-radius: 0px;
+    --style-border-radius-inputs: 0px;
+    --border-hairline: 1px solid var(--color-border);
+
+    /* Z-Index Scale */
+    --z-header: 200;
+    --z-drawer: 300;
+    --z-overlay: 400;
+    --z-modal: 500;
+    --z-toast: 600;
+
+    /* Motion Tokens */
+    --duration-fast: 150ms;
+    --duration-base: 220ms;
+    --duration-slow: 350ms;
+    --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-in-out: cubic-bezier(0.45, 0, 0.55, 1);
+  }
+{% endstyle %}

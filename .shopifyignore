@@ -1,0 +1,7 @@
+tests/
+node_modules/
+package.json
+package-lock.json
+playwright.config.js
+check_output*.txt
+*.log
